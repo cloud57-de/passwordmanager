@@ -6,7 +6,7 @@ import doT from 'dot';
 
 document.getElementById('splash').style.visibility = "hidden";
 
-document.querySelector("#bt_add").addEventListener('click', (e) => {
+document.querySelector("#bt_new").addEventListener('click', (e) => {
   var cardTemplate = doT.template(document.getElementById("card-template").innerHTML);
   var data = {
     name: document.querySelector("#newname").value,
@@ -16,6 +16,11 @@ document.querySelector("#bt_add").addEventListener('click', (e) => {
   var newElement = document.createElement("div");
   newElement.innerHTML = cardTemplate(data);
   document.querySelector('.mdl-grid').appendChild(newElement.firstElementChild);
+
+  document.querySelector("#newname").value = "";
+  document.querySelector("#newaccount").value = "";
+  password: document.querySelector("#newpassword").value = "";
+  componentHandler.upgradeAllRegistered();
 });
 
 
