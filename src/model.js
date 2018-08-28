@@ -59,8 +59,7 @@ export class PasswordList {
 
 export class PasswordModel {
 
-    constructor(index, name, account, password) {
-        this.index = index;
+    constructor(name, account, password) {
         this.name = name;
         this.account = account;
         this.password = password;
