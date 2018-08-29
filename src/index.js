@@ -80,11 +80,9 @@ function create(folderId) {
     parents: [folderId]
   });
   driveAppsUtil.createDocument(metadata, initialdb).then((fileinfo) => {
-    id = fileinfo.id;
-    loadPasswordDB(id);
+    loadPasswordDB(fileinfo.id);
   });
 }
-
 
 document.querySelector("#bt_save").addEventListener('click', (e) => {
 
