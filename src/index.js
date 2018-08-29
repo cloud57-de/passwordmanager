@@ -11,7 +11,7 @@ let pwdList = new PasswordList();
 new Clipboard(".clipboard");
 
 
-
+let id = "";
 
 document.querySelector("#bt_new").addEventListener('click', (e) => {
   var name = document.querySelector("#newname").value;
@@ -81,7 +81,8 @@ function create(folderId) {
     parents: [folderId]
   });
   driveAppsUtil.createDocument(metadata, initialdb).then((fileinfo) => {
-    loadPasswordDB(fileinfo.id);
+    id=fileinfo.id;
+    loadPasswordDB(id);
   });
 }
 
