@@ -11,7 +11,7 @@ let pwdList = new PasswordList();
 new Clipboard(".clipboard");
 
 
-document.getElementById('splash').style.visibility = "hidden";
+
 
 document.querySelector("#bt_new").addEventListener('click', (e) => {
   var name = document.querySelector("#newname").value;
@@ -60,6 +60,7 @@ driveAppsUtil.init().then(() => {
   driveAppsUtil.login().then((user) => {
     showUserImage();
     if (window.location.search) {
+      document.getElementById('splash').style.visibility = "hidden";
       let state = JSON.parse(decodeURI(window.location.search.substr(7)));
       if (state.action === "open") {
         id = state.ids[0];
