@@ -1,3 +1,5 @@
+import uuid from 'uuid';
+
 export class PasswordList {
 
     constructor() {
@@ -7,17 +9,26 @@ export class PasswordList {
     }
 
     add(item) {
-        var index = this.items.push(item);
+        this.items.push(item);
         this.addListener.forEach((listener) => {
-            listener(index, item);
+            listener(item);
         });
     }
 
-    remove(index) {
-        this.removeListener.forEach((listener) => {
-            listener(index, this.items[index]);
-        }, this);
-        this.items.splice(index, 1);
+    remove(id) {
+        var index = -1;
+        for (let i = 0; i < this.items.length; i++) {
+            if (this.items[i].id == id) {
+                index = i;
+                break;
+            }
+        }
+        if (index != -1) {
+            this.removeListener.forEach((listener) => {
+                listener(this.items[index]);
+            }, this);
+            this.items.splice(index, 1);
+        }
     }
 
     list() {
@@ -60,9 +71,11 @@ export class PasswordList {
 export class PasswordModel {
 
     constructor(name, account, password) {
+        this.id = uuid.v4();
         this.name = name;
         this.account = account;
         this.password = password;
+
     }
 
 }

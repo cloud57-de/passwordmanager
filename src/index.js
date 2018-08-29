@@ -5,6 +5,7 @@ import doT from 'dot';
 import {PasswordList, PasswordModel} from './model';
 import Clipboard from 'clipboard';
 
+
 let cardTemplate = doT.template(document.getElementById("card-template").innerHTML);
 let pwdList = new PasswordList();
 new Clipboard(".clipboard");
@@ -28,20 +29,18 @@ document.querySelector("#bt_new").addEventListener('click', (e) => {
   document.querySelector("#newpassword").parentElement.classList.remove("is-dirty");
 });
 
-let addNewItem = function(index, newItem) {
+let addNewItem = function(newItem) {
   var newElement = document.createElement("div");
-  newItem.index=index;
   newElement.innerHTML = cardTemplate(newItem);
   newElement.querySelector(".bt_delete").addEventListener('click', (e) => {
-    var index = e.currentTarget.getAttribute("index");
-    pwdList.remove(index);
+    pwdList.remove(e.currentTarget.id);
   });
   document.querySelector('.mdl-grid').appendChild(newElement.firstElementChild);
 }
 pwdList.registerAddListener(addNewItem);
 
-let addRemoveItem = function(index, removeItem) {
-  var element = document.querySelector("#card_" + index);
+let addRemoveItem = function(removeItem) {
+  var element = document.querySelector("#card_" + removeItem.id);
   element.parentElement.removeChild(element);
 }
 pwdList.registerRemoveListener(addRemoveItem);

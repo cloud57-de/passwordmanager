@@ -64,7 +64,8 @@
             </div-->
         </div>
 
-        <div class="mdl-grid">
+        <form action="javascript:document.activeElement.blur();">
+          <div class="mdl-grid">
           <div class="mdl-cell mdl-cell--3-col">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input class="mdl-textfield__input" type="text" id="newname">
@@ -84,15 +85,16 @@
             </div>
           </div>
           <div class="mdl-cell mdl-cell--3-col">
-            <button id="bt_new" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+            <button type="submit" id="bt_new" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
               <i class="material-icons">add</i>
             </button>
             <div class="mdl-tooltip" for="bt_new">Add</div>
           </div>
         </div>
+      </form>
 
         <template id="card-template">
-          <div id="card_{{=it.index}}" class="mdl-cell mdl-cell--4-col mdl-cell--6-col-tablet mdl--12-col-phone">
+          <div id="card_{{=it.id}}" class="mdl-cell mdl-cell--4-col mdl-cell--6-col-tablet mdl--12-col-phone">
             <div class="card-password mdl-card mdl-shadow--2dp">
               <div class="mdl-card__title mdl-card--expand">
                 <h4>
@@ -103,7 +105,7 @@
                 <button data-clipboard-text="{{=it.password}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect clipboard">
                     <i class="material-icons">flip_to_front</i> Copy password
                 </button>
-                <button index="{{=it.index}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect bt_delete">
+                <button id="{{=it.id}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect bt_delete">
                     <i class="material-icons">delete</i>
                 </button>
               </div>
