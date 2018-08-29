@@ -81,7 +81,7 @@ function create(folderId) {
     parents: [folderId]
   });
   driveAppsUtil.createDocument(metadata, initialdb).then((fileinfo) => {
-    id=fileinfo.id;
+    id = fileinfo.id;
     loadPasswordDB(id);
   });
 }
@@ -110,13 +110,13 @@ function loadPasswordDB(id) {
     showErrorMessage(reason);
   });
   driveAppsUtil.getDocumentMeta(id).then((fileinfo) => {
-    document.getElementById('docinfo').textContent = fileinfo.name;
+    document.getElementById('docinfo').value = fileinfo.name;
     document.getElementById('docinfodrawer').textContent = fileinfo.name;
     document.title = fileinfo.name;
   }, (reason) => {
     showErrorMessage(reason);
   });
-  
+
   showInfoMessage("Password DB loaded");
 }
 
