@@ -2,7 +2,7 @@ import DriveAppsUtil from 'drive-apps-util';
 import URLSafeBase64 from 'urlsafe-base64';
 import MarterialDesign from 'material-design-lite';
 import doT from 'dot';
-import {PasswordList, PasswordModel} from './model';
+import { PasswordList, PasswordModel } from './model';
 import Clipboard from 'clipboard';
 
 
@@ -17,19 +17,19 @@ document.querySelector("#bt_new").addEventListener('click', (e) => {
   var name = document.querySelector("#newname").value;
   var account = document.querySelector("#newaccount").value;
   var password = document.querySelector("#newpassword").value;
-   
+
   var data = new PasswordModel(name, account, password);
- 
+
   pwdList.add(data);
-  document.querySelector("#newname").value="";
-  document.querySelector("#newaccount").value="";
-  document.querySelector("#newpassword").value="";
+  document.querySelector("#newname").value = "";
+  document.querySelector("#newaccount").value = "";
+  document.querySelector("#newpassword").value = "";
   document.querySelector("#newname").parentElement.classList.remove("is-dirty");
   document.querySelector("#newaccount").parentElement.classList.remove("is-dirty");
   document.querySelector("#newpassword").parentElement.classList.remove("is-dirty");
 });
 
-let addNewItem = function(newItem) {
+let addNewItem = function (newItem) {
   var newElement = document.createElement("div");
   newElement.innerHTML = cardTemplate(newItem);
   newElement.querySelector(".bt_delete").addEventListener('click', (e) => {
@@ -39,7 +39,7 @@ let addNewItem = function(newItem) {
 }
 pwdList.registerAddListener(addNewItem);
 
-let addRemoveItem = function(removeItem) {
+let addRemoveItem = function (removeItem) {
   var element = document.querySelector("#card_" + removeItem.id);
   element.parentElement.removeChild(element);
 }
@@ -47,7 +47,7 @@ pwdList.registerRemoveListener(addRemoveItem);
 
 
 let options = {
-  "clientId": "145940141011-udiukcp2nk8tg4vdjeavefdhns7g109r.apps.googleusercontent.com",
+  "clientId": "540050774904-tigjal4ghtm23hkkvp1edperl5n0n0s8.apps.googleusercontent.com",
   "scope": [
     "profile",
     "https://www.googleapis.com/auth/drive.file",
@@ -59,19 +59,65 @@ let driveAppsUtil = new DriveAppsUtil(options);
 driveAppsUtil.init().then(() => {
   driveAppsUtil.login().then((user) => {
     showUserImage();
-    loadPasswordDB();
-    showInfoMessage("Password DB loaded");
-
+    if (window.location.search) {
+      let state = JSON.parse(decodeURI(window.location.search.substr(7)));
+      if (state.action === "open") {
+        id = state.ids[0];
+        loadPasswordDB(id);
+      }
+      else if (state.action === 'create') {
+        create(state.folderId);
+      }
+    }
   });
 });
 
+function create(folderId) {
+  let initialdb = "";
+  let metadata = JSON.stringify({
+    name: "New Password DB",
+    mimeType: "application/cloud57-password-db",
+    parents: [folderId]
+  });
+  driveAppsUtil.createDocument(metadata, initialdb).then((fileinfo) => {
+    id = fileinfo.id;
+    loadPasswordDB(id);
+  });
+}
+
+
 document.querySelector("#bt_save").addEventListener('click', (e) => {
-  localStorage.setItem("passworddb", pwdList.export());  
-  showInfoMessage("Password saved");
+
+  let content = pwdList.export();
+  let metadata = JSON.stringify({
+    name: document.getElementById('docinfo').value,
+    mimeType: "application/cloud57-password-db",
+  });
+
+  driveAppsUtil.updateDocument(id, metadata, content).then((fileinfo) => {
+    document.getElementById('docinfo').value = fileinfo.name;
+    document.getElementById('docinfodrawer').textContent = fileinfo.name;
+    document.title = fileinfo.name;
+    showInfoMessage("Password DB saved");
+  });
+
 });
 
-function loadPasswordDB() {
-  pwdList.import(localStorage.getItem("passworddb"));
+function loadPasswordDB(id) {
+  driveAppsUtil.getDocumentContent(id).then((text) => {
+    pwdList.import(text);
+  }, (reason) => {
+    showErrorMessage(reason);
+  });
+  driveAppsUtil.getDocumentMeta(id).then((fileinfo) => {
+    document.getElementById('docinfo').textContent = fileinfo.name;
+    document.getElementById('docinfodrawer').textContent = fileinfo.name;
+    document.title = fileinfo.name;
+  }, (reason) => {
+    showErrorMessage(reason);
+  });
+  
+  showInfoMessage("Password DB loaded");
 }
 
 function showUserImage() {
