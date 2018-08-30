@@ -166,14 +166,3 @@ function showInfoMessage(message) {
     }
   );
 }
-
-document.querySelector("#bt_test").addEventListener('click', (e) => {
-  testEncrypt();
-});
-
-function testEncrypt() {
-  encrypt("test", pwdList.export()).then((encrypted) => {
-    console.log("Encrypt: " + encrypted);
-  });
-
-}
