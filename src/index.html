@@ -46,56 +46,75 @@
     </div>
     <!-- Left aligned menu below button -->
     <main class="mdl-layout__content">
-      <div id="editor">
-
-        <div id="splash" class="demo-card-wide mdl-card mdl-shadow--2dp">
-          <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Cloud57 Password Manager</h2>
-          </div>
-          <div class="mdl-card__supporting-text">
-            Stores passwords on Google Drive. If you want to use this app, you have to install it to your Drive Apps and then create
-            a new Password Manager file.
-          </div>
-          <div class="mdl-card__actions mdl-card--border">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="https://drive.google.com/">
-              Go to Google Drive
-            </a>
-          </div>
-          <!--div class="mdl-card__menu">
-              <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                <i class="material-icons">share</i>
-              </button>
-            </div-->
+      <div id="splash" class="demo-card-wide mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">Cloud57 Password Manager</h2>
         </div>
+        <div class="mdl-card__supporting-text">
+          Stores passwords on Google Drive. If you want to use this app, you have to install it to your Drive Apps and then create
+          a new Password Manager file.
+        </div>
+        <div class="mdl-card__actions mdl-card--border">
+          <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="https://drive.google.com/">
+            Go to Google Drive
+          </a>
+        </div>
+        <!--div class="mdl-card__menu">
+            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+              <i class="material-icons">share</i>
+            </button>
+          </div-->
+      </div>
+      <div id="password_dialog" class="password-card-wide mdl-card mdl-shadow--2dp" style="visibility: hidden">
+        <form action="javascript:document.activeElement.blur();">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">Master password</h2>
+        </div>
+
+        <div class="mdl-card__actions mdl-card--border">
+          <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="password" id="masterpassword">
+            <label class="mdl-textfield__label" for="masterpassword">Password...</label>
+          </div>
+          <div class="mdl-layout-spacer"></div>
+          <button id="bt_master" type="submit" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+            <i class="material-icons">build</i>
+          </button>
+        </div>
+      </form>
+      </div>
+
+      <div id="main" style="visibility: hidden">
+
 
         <form action="javascript:document.activeElement.blur();">
           <div class="mdl-grid">
-          <div class="mdl-cell mdl-cell--3-col">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="newname">
-              <label class="mdl-textfield__label" for="newname">Name...</label>
+            <div class="mdl-cell mdl-cell--3-col">
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="newname">
+                <label class="mdl-textfield__label" for="newname">Name...</label>
+              </div>
+            </div>
+            <div class="mdl-cell mdl-cell--3-col">
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="newaccount">
+                <label class="mdl-textfield__label" for="newaccount">Account...</label>
+              </div>
+            </div>
+            <div class="mdl-cell mdl-cell--3-col">
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="password" id="newpassword">
+                <label class="mdl-textfield__label" for="newpassword">Password...</label>
+              </div>
+            </div>
+            <div class="mdl-cell mdl-cell--3-col">
+              <button type="submit" id="bt_new" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+                <i class="material-icons">add</i>
+              </button>
+              <div class="mdl-tooltip" for="bt_new">Add</div>
             </div>
           </div>
-          <div class="mdl-cell mdl-cell--3-col">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="newaccount">
-              <label class="mdl-textfield__label" for="newaccount">Account...</label>
-            </div>
-          </div>
-          <div class="mdl-cell mdl-cell--3-col">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="password" id="newpassword">
-              <label class="mdl-textfield__label" for="newpassword">Password...</label>
-            </div>
-          </div>
-          <div class="mdl-cell mdl-cell--3-col">
-            <button type="submit" id="bt_new" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
-              <i class="material-icons">add</i>
-            </button>
-            <div class="mdl-tooltip" for="bt_new">Add</div>
-          </div>
-        </div>
-      </form>
+        </form>
 
         <template id="card-template">
           <div id="card_{{=it.id}}" class="mdl-cell mdl-cell--4-col mdl-cell--6-col-tablet mdl--12-col-phone">
@@ -107,10 +126,10 @@
               </div>
               <div class="mdl-card__actions mdl-card--border">
                 <button data-clipboard-text="{{=it.password}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect clipboard">
-                    <i class="material-icons">flip_to_front</i> Copy password
+                  <i class="material-icons">flip_to_front</i> Copy password
                 </button>
                 <button id="{{=it.id}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect bt_delete">
-                    <i class="material-icons">delete</i>
+                  <i class="material-icons">delete</i>
                 </button>
               </div>
             </div>

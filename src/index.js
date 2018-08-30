@@ -48,6 +48,12 @@ let addRemoveItem = function (removeItem) {
 }
 pwdList.registerRemoveListener(addRemoveItem);
 
+document.querySelector("#bt_master").addEventListener('click', (e) => {
+  document.getElementById('password_dialog').style.visibility = "hidden";
+  password = document.querySelector("#masterpassword").value;
+  loadPasswordDB();
+  document.getElementById('main').style.visibility = "visible";
+});
 
 let options = {
   "clientId": "540050774904-tigjal4ghtm23hkkvp1edperl5n0n0s8.apps.googleusercontent.com",
@@ -67,7 +73,8 @@ driveAppsUtil.init().then(() => {
       let state = JSON.parse(decodeURI(window.location.search.substr(7)));
       if (state.action === "open") {
         id = state.ids[0];
-        loadPasswordDB(id);
+        document.getElementById('password_dialog').style.visibility = "visible";
+            
       }
       else if (state.action === 'create') {
         create(state.folderId);
@@ -108,25 +115,24 @@ document.querySelector("#bt_save").addEventListener('click', (e) => {
 
 });
 
-function loadPasswordDB(id) {
-  document.getElementById('splash').style.visibility = "hidden";
+function loadPasswordDB() {
   driveAppsUtil.getDocumentContent(id).then((text) => {
-    password = prompt("Password");
+    
     decrypt(password, text).then((decrypted) => {
       pwdList.import(decrypted);
-    });
+      driveAppsUtil.getDocumentMeta(id).then((fileinfo) => {
+        document.getElementById('docinfo').value = fileinfo.name;
+        document.getElementById('docinfodrawer').textContent = fileinfo.name;
+        document.title = fileinfo.name;
+      }, (reason) => {
+        showErrorMessage(reason);
+      });
+    
+      showInfoMessage("Password DB loaded");   });
   }, (reason) => {
     showErrorMessage(reason);
   });
-  driveAppsUtil.getDocumentMeta(id).then((fileinfo) => {
-    document.getElementById('docinfo').value = fileinfo.name;
-    document.getElementById('docinfodrawer').textContent = fileinfo.name;
-    document.title = fileinfo.name;
-  }, (reason) => {
-    showErrorMessage(reason);
-  });
-
-  showInfoMessage("Password DB loaded");
+ 
 }
 
 function showUserImage() {

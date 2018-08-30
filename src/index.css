@@ -3,12 +3,9 @@ footer.mdl-mini-footer {
 }
 
 .is-hidden {
-    visibility: hidden;
+    display: none;
 }
 
-.is-visible {
-    visibility: visible;
-}
 
 .demo-card-wide.mdl-card {
     position:fixed;
@@ -28,4 +25,21 @@ footer.mdl-mini-footer {
   }
   .demo-card-wide > .mdl-card__menu {
     color: #fff;
+  }
+
+  .password-card-wide.mdl-card {
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    width:20em;
+    height:10em;
+    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+    margin-left: -15em; /*set to a negative number 1/2 of your width*/  
+  }
+  .password-card-wide > .mdl-card__title {
+    color: rgb(37, 32, 23);
+    height: 70px;
+  }
+  .password-card-wide > .mdl-card__menu {
+    color: rgb(20, 14, 14);
   }
