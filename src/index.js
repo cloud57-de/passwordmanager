@@ -3,14 +3,17 @@ import URLSafeBase64 from 'urlsafe-base64';
 import MarterialDesign from 'material-design-lite';
 import doT from 'dot';
 import { PasswordList, PasswordModel } from './model';
+import { encrypt, decrypt } from './encryption';
 import Clipboard from 'clipboard';
+
+
 
 
 let cardTemplate = doT.template(document.getElementById("card-template").innerHTML);
 let pwdList = new PasswordList();
 new Clipboard(".clipboard");
 
-
+let password = "";
 let id = "";
 
 document.querySelector("#bt_new").addEventListener('click', (e) => {
@@ -86,26 +89,32 @@ function create(folderId) {
   });
 }
 
+
 document.querySelector("#bt_save").addEventListener('click', (e) => {
-
   let content = pwdList.export();
-  let metadata = JSON.stringify({
-    name: document.getElementById('docinfo').value,
-    mimeType: "application/cloud57-password-db",
-  });
+  encrypt(password, content).then((encrypted) => {
+    let metadata = JSON.stringify({
+      name: document.getElementById('docinfo').value,
+      mimeType: "application/cloud57-password-db",
+    });
 
-  driveAppsUtil.updateDocument(id, metadata, content).then((fileinfo) => {
-    document.getElementById('docinfo').value = fileinfo.name;
-    document.getElementById('docinfodrawer').textContent = fileinfo.name;
-    document.title = fileinfo.name;
-    showInfoMessage("Password DB saved");
+    driveAppsUtil.updateDocument(id, metadata, encrypted).then((fileinfo) => {
+      document.getElementById('docinfo').value = fileinfo.name;
+      document.getElementById('docinfodrawer').textContent = fileinfo.name;
+      document.title = fileinfo.name;
+      showInfoMessage("Password DB saved");
+    });
   });
 
 });
 
 function loadPasswordDB(id) {
+  document.getElementById('splash').style.visibility = "hidden";
   driveAppsUtil.getDocumentContent(id).then((text) => {
-    pwdList.import(text);
+    password = prompt("Password");
+    decrypt(password, text).then((decrypted) => {
+      pwdList.import(decrypted);
+    });
   }, (reason) => {
     showErrorMessage(reason);
   });
@@ -150,4 +159,15 @@ function showInfoMessage(message) {
       message: message
     }
   );
+}
+
+document.querySelector("#bt_test").addEventListener('click', (e) => {
+  testEncrypt();
+});
+
+function testEncrypt() {
+  encrypt("test", pwdList.export()).then((encrypted) => {
+    console.log("Encrypt: " + encrypted);
+  });
+
 }
