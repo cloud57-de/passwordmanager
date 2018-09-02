@@ -38,7 +38,7 @@ let addNewItem = function (newItem) {
   newElement.querySelector(".bt_delete").addEventListener('click', (e) => {
     pwdList.remove(e.currentTarget.id);
   });
-  document.querySelector('.mdl-grid').appendChild(newElement.firstElementChild);
+  document.querySelector('#passworditems').appendChild(newElement.firstElementChild);
 }
 pwdList.registerAddListener(addNewItem);
 
@@ -49,10 +49,11 @@ let addRemoveItem = function (removeItem) {
 pwdList.registerRemoveListener(addRemoveItem);
 
 document.querySelector("#bt_master").addEventListener('click', (e) => {
-  document.getElementById('password_dialog').style.visibility = "hidden";
+  document.getElementById('startpage').style.display = "none";
   password = document.querySelector("#masterpassword").value;
   loadPasswordDB();
   document.getElementById('main').style.visibility = "visible";
+  document.getElementById('mainpage').style.visibility = "visible";
 });
 
 let options = {
@@ -69,11 +70,11 @@ driveAppsUtil.init().then(() => {
   driveAppsUtil.login().then((user) => {
     showUserImage();
     if (window.location.search) {
-      document.getElementById('splash').style.visibility = "hidden";
+      document.getElementById('splash').style.display = "none";
       let state = JSON.parse(decodeURI(window.location.search.substr(7)));
       if (state.action === "open") {
         id = state.ids[0];
-        document.getElementById('password_dialog').style.visibility = "visible";
+        document.getElementById('password_dialog').style.display = "block";
             
       }
       else if (state.action === 'create') {
