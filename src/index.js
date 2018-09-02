@@ -102,7 +102,7 @@ document.querySelector("#bt_save").addEventListener('click', (e) => {
   let content = pwdList.export();
   encrypt(password, content).then((encrypted) => {
     let documentName = document.getElementById('docinfo').value;
-    if (!documentName.endswith(".passwd")) {
+    if (!documentName.endsWith(".passwd")) {
       documentName = documentName + ".passwd";
     }
     let metadata = JSON.stringify({

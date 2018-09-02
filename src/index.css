@@ -1,8 +1,9 @@
 footer {
-  position: fixed;
+  position: absolute;
   left: 0;
   bottom: 0;
   width: 100%;
+  z-index: 1;
 }
 
 footer.mdl-mini-footer {
@@ -13,9 +14,19 @@ footer.mdl-mini-footer {
     display: none;
 }
 
+#mainpage {
+  min-height: 100%;
+  padding-bottom: 5rem;
+}
+
+#startpage {
+  min-height: 100%;
+  padding-bottom: 5rem;
+}
 
 .demo-card-wide.mdl-card {
     position: relative;
+    top: 10rem;
     width:100%;
     margin-top: 0em; /*set to a negative number 1/2 of your height*/
     margin-left: 0em; /*set to a negative number 1/2 of your width*/
@@ -33,7 +44,7 @@ footer.mdl-mini-footer {
 
   .password-card-wide.mdl-card {
     position: relative;
-    top: 0px;
+    top: 10rem;
     left: 0px;
     width:100%;
     margin-top: 0em; /*set to a negative number 1/2 of your height*/
@@ -41,8 +52,13 @@ footer.mdl-mini-footer {
   }
   .password-card-wide > .mdl-card__title {
     color: rgb(37, 32, 23);
-    height: 70px;
+    height: 5rem;
   }
   .password-card-wide > .mdl-card__menu {
     color: rgb(20, 14, 14);
+  }
+
+
+  .mdl-js-snackbar {
+    z-index: 100;
   }
