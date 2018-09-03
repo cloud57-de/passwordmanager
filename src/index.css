@@ -42,19 +42,16 @@ footer.mdl-mini-footer {
     color: #fff;
   }
 
-  .password-card-wide.mdl-card {
-    position: relative;
-    top: 10rem;
-    left: 0px;
-    width:100%;
-    margin-top: 0em; /*set to a negative number 1/2 of your height*/
-    margin-left: 0em; /*set to a negative number 1/2 of your width*/
+  .card-password {
+    width: 100%;
   }
-  .password-card-wide > .mdl-card__title {
+  .card-password > .mdl-card__title {
     color: rgb(37, 32, 23);
-    height: 5rem;
   }
-  .password-card-wide > .mdl-card__menu {
+  .card-password > .mdl-card__supporting-text {
+    font-size: 1.5rem;
+  }
+  .card-password > .mdl-card__menu {
     color: rgb(20, 14, 14);
   }
 
