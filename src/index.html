@@ -7,10 +7,10 @@
   <title>Cloud57 Password Manager</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" type="text/css" media="screen" href="index.css" />
   <link rel="stylesheet" href="../node_modules/material-design-lite/material.min.css">
   <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.light_green-green.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" crossorigin='anonymous'>
+  <link rel="stylesheet" type="text/css" media="screen" href="index.css" />
 
 </head>
 
@@ -136,10 +136,13 @@
                       <button data-clipboard-text="{{=it.password}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect clipboard">
                     <i class="material-icons">flip_to_front</i>Copy password
                   </button>
-                  <button id="{{=it.id}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect bt_delete">
+                </div>
+                <div class="mdl-card__menu">
+                  <button id="{{=it.id}}" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect bt_delete">
                     <i class="material-icons">delete</i>
                   </button>
                 </div>
+              
               </div>
             </div>
 
