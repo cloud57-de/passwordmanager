@@ -38,7 +38,40 @@
     </header>
     <div class="mdl-layout__drawer">
       <span class="mdl-layout-title">Cloud57 Password Manager</span>
-      <span id="docinfodrawer" class="title"></span>
+      <div class="mdl-textfield mdl-js-textfield mdl-layout-title">
+          <input class="mdl-textfield__input" type="text" id="docinfodrawer">
+          <label class="mdl-textfield__label" for="docinfodrawer"></label>
+        </div>
+
+      <form action="javascript:document.activeElement.blur();">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col">
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="newnamedrawer">
+                <label class="mdl-textfield__label" for="newnamedrawer">Name...</label>
+              </div>
+            </div>
+            <div class="mdl-cell mdl-cell--12-col">
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" id="newaccountdrawer">
+                <label class="mdl-textfield__label" for="newaccountdrawer">Account...</label>
+              </div>
+            </div>
+            <div class="mdl-cell mdl-cell--12-col">
+              <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="password" id="newpassworddrawer">
+                <label class="mdl-textfield__label" for="newpassworddrawer">Password...</label>
+              </div>
+            </div>
+            <div class="mdl-cell mdl-cell--12-col">
+              <button type="submit" id="bt_new_drawer" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+                <i class="material-icons">add</i>
+              </button>
+              <div class="mdl-tooltip" for="bt_new_drawer">Add</div>
+            </div>
+          </div>
+        </form>
+
     </div>
     <!-- Left aligned menu below button -->
     <main class="mdl-layout__content">
@@ -88,34 +121,36 @@
       </section>
       <section id="mainpage" style="visibility: hidden">
         <div id="main">
-          <form action="javascript:document.activeElement.blur();">
-            <div class="mdl-grid">
-              <div class="mdl-cell mdl-cell--3-col">
-                <div class="mdl-textfield mdl-js-textfield">
-                  <input class="mdl-textfield__input" type="text" id="newname">
-                  <label class="mdl-textfield__label" for="newname">Name...</label>
+          <div class="mdl-layout--large-screen-only">
+            <form action="javascript:document.activeElement.blur();">
+              <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--3-col">
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="newname">
+                    <label class="mdl-textfield__label" for="newname">Name...</label>
+                  </div>
+                </div>
+                <div class="mdl-cell mdl-cell--3-col">
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="newaccount">
+                    <label class="mdl-textfield__label" for="newaccount">Account...</label>
+                  </div>
+                </div>
+                <div class="mdl-cell mdl-cell--3-col">
+                  <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="password" id="newpassword">
+                    <label class="mdl-textfield__label" for="newpassword">Password...</label>
+                  </div>
+                </div>
+                <div class="mdl-cell mdl-cell--3-col">
+                  <button type="submit" id="bt_new" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+                    <i class="material-icons">add</i>
+                  </button>
+                  <div class="mdl-tooltip" for="bt_new">Add</div>
                 </div>
               </div>
-              <div class="mdl-cell mdl-cell--3-col">
-                <div class="mdl-textfield mdl-js-textfield">
-                  <input class="mdl-textfield__input" type="text" id="newaccount">
-                  <label class="mdl-textfield__label" for="newaccount">Account...</label>
-                </div>
-              </div>
-              <div class="mdl-cell mdl-cell--3-col">
-                <div class="mdl-textfield mdl-js-textfield">
-                  <input class="mdl-textfield__input" type="password" id="newpassword">
-                  <label class="mdl-textfield__label" for="newpassword">Password...</label>
-                </div>
-              </div>
-              <div class="mdl-cell mdl-cell--3-col">
-                <button type="submit" id="bt_new" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
-                  <i class="material-icons">add</i>
-                </button>
-                <div class="mdl-tooltip" for="bt_new">Add</div>
-              </div>
-            </div>
-          </form>
+            </form>
+          </div>
           <div id="passworditems" class="mdl-grid">
           </div>
           <template id="card-template">
@@ -130,10 +165,10 @@
                   {{=it.account}}
                 </div>
                 <div class="mdl-card__actions mdl-card--border">
-                    <button data-clipboard-text="{{=it.account}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect clipboard">
-                        <i class="material-icons">file_copy</i>Copy account
-                      </button>
-                      <button data-clipboard-text="{{=it.password}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect clipboard">
+                  <button data-clipboard-text="{{=it.account}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect clipboard">
+                    <i class="material-icons">file_copy</i>Copy account
+                  </button>
+                  <button data-clipboard-text="{{=it.password}}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect clipboard">
                     <i class="material-icons">flip_to_front</i>Copy password
                   </button>
                 </div>
@@ -142,7 +177,7 @@
                     <i class="material-icons">delete</i>
                   </button>
                 </div>
-              
+
               </div>
             </div>
 

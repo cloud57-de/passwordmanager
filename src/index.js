@@ -32,6 +32,22 @@ document.querySelector("#bt_new").addEventListener('click', (e) => {
   document.querySelector("#newpassword").parentElement.classList.remove("is-dirty");
 });
 
+document.querySelector("#bt_new_drawer").addEventListener('click', (e) => {
+  var name = document.querySelector("#newnamedrawer").value;
+  var account = document.querySelector("#newaccountdrawer").value;
+  var password = document.querySelector("#newpassworddrawer").value;
+
+  var data = new PasswordModel(name, account, password);
+
+  pwdList.add(data);
+  document.querySelector("#newnamedrawer").value = "";
+  document.querySelector("#newaccountdrawer").value = "";
+  document.querySelector("#newpassworddrawer").value = "";
+  document.querySelector("#newnamedrawer").parentElement.classList.remove("is-dirty");
+  document.querySelector("#newaccountdrawer").parentElement.classList.remove("is-dirty");
+  document.querySelector("#newpassworddrawer").parentElement.classList.remove("is-dirty");
+});
+
 let addNewItem = function (newItem) {
   var newElement = document.createElement("div");
   newElement.innerHTML = cardTemplate(newItem);
@@ -101,7 +117,11 @@ function create(folderId) {
 document.querySelector("#bt_save").addEventListener('click', (e) => {
   let content = pwdList.export();
   encrypt(password, content).then((encrypted) => {
+    
     let documentName = document.getElementById('docinfo').value;
+    if (document.getElementById('docinfodrawer').visibility=='') {
+      documentName = document.getElementById('docinfodrawer').value;
+    }
     if (!documentName.endsWith(".passwd")) {
       documentName = documentName + ".passwd";
     }
@@ -112,7 +132,7 @@ document.querySelector("#bt_save").addEventListener('click', (e) => {
 
     driveAppsUtil.updateDocument(id, metadata, encrypted).then((fileinfo) => {
       document.getElementById('docinfo').value = fileinfo.name;
-      document.getElementById('docinfodrawer').textContent = fileinfo.name;
+      document.getElementById('docinfodrawer').value = fileinfo.name;
       document.title = fileinfo.name;
       showInfoMessage("Password DB saved");
     });
@@ -127,7 +147,7 @@ function loadPasswordDB() {
       pwdList.import(decrypted);
       driveAppsUtil.getDocumentMeta(id).then((fileinfo) => {
         document.getElementById('docinfo').value = fileinfo.name;
-        document.getElementById('docinfodrawer').textContent = fileinfo.name;
+        document.getElementById('docinfodrawer').value = fileinfo.name;
         document.title = fileinfo.name;
       }, (reason) => {
         showErrorMessage(reason);
