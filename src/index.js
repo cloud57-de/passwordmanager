@@ -54,6 +54,10 @@ let addNewItem = function (newItem) {
   newElement.querySelector(".bt_delete").addEventListener('click', (e) => {
     pwdList.remove(e.currentTarget.id);
   });
+  
+  newElement.querySelector(".bt_show_pwd").addEventListener('click', (e) => {
+    showPwdMessage(pwdList.get(e.currentTarget.id).password);
+  });
   document.querySelector('#passworditems').appendChild(newElement.firstElementChild);
 }
 pwdList.registerAddListener(addNewItem);
@@ -188,6 +192,16 @@ function showInfoMessage(message) {
   notification.MaterialSnackbar.showSnackbar(
     {
       message: message
+    }
+  );
+}
+
+function showPwdMessage(message) {
+  var notification = document.querySelector('.mdl-js-snackbar');
+  notification.MaterialSnackbar.showSnackbar(
+    {
+      message: message,
+      timeout: 2000
     }
   );
 }

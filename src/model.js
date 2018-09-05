@@ -31,6 +31,17 @@ export class PasswordList {
         }
     }
 
+    get(id) {
+        var index = -1;
+        for (let i = 0; i < this.items.length; i++) {
+            if (this.items[i].id == id) {
+                index = i;
+                break;
+            }
+        }
+        return this.items[index];
+    }
+
     list() {
         return this.items;
     }
