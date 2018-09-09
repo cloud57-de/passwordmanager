@@ -20,8 +20,8 @@ document.querySelector("#bt_new").addEventListener('click', (e) => {
   var password = document.querySelector("#newpassword").value;
 
   var data = new PasswordModel(name, account, password);
-
   pwdList.add(data);
+
   document.querySelector("#newname").value = "";
   document.querySelector("#newaccount").value = "";
   document.querySelector("#newpassword").value = "";
@@ -36,8 +36,8 @@ document.querySelector("#bt_new_drawer").addEventListener('click', (e) => {
   var password = document.querySelector("#newpassworddrawer").value;
 
   var data = new PasswordModel(name, account, password);
-
   pwdList.add(data);
+    
   document.querySelector("#newnamedrawer").value = "";
   document.querySelector("#newaccountdrawer").value = "";
   document.querySelector("#newpassworddrawer").value = "";
@@ -59,6 +59,7 @@ let addNewItem = function (newItem) {
   document.querySelector('#passworditems').appendChild(newElement.firstElementChild);
 }
 pwdList.registerAddListener(addNewItem);
+
 
 let addRemoveItem = function (removeItem) {
   var element = document.querySelector("#card_" + removeItem.id);
@@ -116,6 +117,10 @@ function create(folderId) {
 }
 
 document.querySelector("#bt_save").addEventListener('click', (e) => {
+  save();
+});
+
+function save() {
   let content = pwdList.export();
   encrypt(password, content).then((encrypted) => {
     
@@ -139,13 +144,15 @@ document.querySelector("#bt_save").addEventListener('click', (e) => {
     });
   });
 
-});
+}
 
 function loadPasswordDB() {
   driveAppsUtil.getDocumentContent(id).then((text) => {
     
     decrypt(password, text).then((decrypted) => {
       pwdList.import(decrypted);
+      pwdList.registerAddListener(save);
+      pwdList.registerRemoveListener(save);
       driveAppsUtil.getDocumentMeta(id).then((fileinfo) => {
         document.getElementById('docinfo').value = fileinfo.name;
         document.getElementById('docinfodrawer').value = fileinfo.name;
@@ -153,7 +160,7 @@ function loadPasswordDB() {
       }, (reason) => {
         showErrorMessage(reason);
       });
-    
+          
       showInfoMessage("Password DB loaded");   });
   }, (reason) => {
     showErrorMessage(reason);
