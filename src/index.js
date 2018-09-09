@@ -7,8 +7,6 @@ import { encrypt, decrypt } from './encryption';
 import Clipboard from 'clipboard';
 
 
-
-
 let cardTemplate = doT.template(document.getElementById("card-template").innerHTML);
 let pwdList = new PasswordList();
 new Clipboard(".clipboard");
@@ -117,7 +115,6 @@ function create(folderId) {
   });
 }
 
-
 document.querySelector("#bt_save").addEventListener('click', (e) => {
   let content = pwdList.export();
   encrypt(password, content).then((encrypted) => {
@@ -160,8 +157,7 @@ function loadPasswordDB() {
       showInfoMessage("Password DB loaded");   });
   }, (reason) => {
     showErrorMessage(reason);
-  });
- 
+  }); 
 }
 
 function showUserImage() {
@@ -169,7 +165,6 @@ function showUserImage() {
   document.getElementById('userimage').classList.add("visible");
   document.getElementById('userimage').src = window.gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getImageUrl();
 }
-
 
 function showErrorMessage(message) {
   if (typeof message.status !== 'undefined') {
