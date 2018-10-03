@@ -15,11 +15,11 @@ let password = "";
 let id = "";
 
 document.querySelector("#bt_new").addEventListener('click', (e) => {
-  var name = document.querySelector("#newname").value;
-  var account = document.querySelector("#newaccount").value;
-  var password = document.querySelector("#newpassword").value;
+  let name = document.querySelector("#newname").value;
+  let account = document.querySelector("#newaccount").value;
+  let newpassword = document.querySelector("#newpassword").value;
 
-  var data = new PasswordModel(name, account, password);
+  let data = new PasswordModel(name, account, newpassword);
   pwdList.add(data);
 
   document.querySelector("#newname").value = "";
@@ -31,13 +31,13 @@ document.querySelector("#bt_new").addEventListener('click', (e) => {
 });
 
 document.querySelector("#bt_new_drawer").addEventListener('click', (e) => {
-  var name = document.querySelector("#newnamedrawer").value;
-  var account = document.querySelector("#newaccountdrawer").value;
-  var password = document.querySelector("#newpassworddrawer").value;
+  let name = document.querySelector("#newnamedrawer").value;
+  let account = document.querySelector("#newaccountdrawer").value;
+  let newpassword = document.querySelector("#newpassworddrawer").value;
 
-  var data = new PasswordModel(name, account, password);
+  let data = new PasswordModel(name, account, newpassword);
   pwdList.add(data);
-    
+
   document.querySelector("#newnamedrawer").value = "";
   document.querySelector("#newaccountdrawer").value = "";
   document.querySelector("#newpassworddrawer").value = "";
@@ -47,12 +47,12 @@ document.querySelector("#bt_new_drawer").addEventListener('click', (e) => {
 });
 
 let addNewItem = function (newItem) {
-  var newElement = document.createElement("div");
+  let newElement = document.createElement("div");
   newElement.innerHTML = cardTemplate(newItem);
   newElement.querySelector(".bt_delete").addEventListener('click', (e) => {
     pwdList.remove(e.currentTarget.id);
   });
-  
+
   newElement.querySelector(".bt_show_pwd").addEventListener('click', (e) => {
     showPwdMessage(pwdList.get(e.currentTarget.id).password);
   });
@@ -62,7 +62,7 @@ pwdList.registerAddListener(addNewItem);
 
 
 let addRemoveItem = function (removeItem) {
-  var element = document.querySelector("#card_" + removeItem.id);
+  let element = document.querySelector("#card_" + removeItem.id);
   element.parentElement.removeChild(element);
 }
 pwdList.registerRemoveListener(addRemoveItem);
@@ -94,7 +94,7 @@ driveAppsUtil.init().then(() => {
       if (state.action === "open") {
         id = state.ids[0];
         document.getElementById('password_dialog').style.display = "block";
-            
+
       }
       else if (state.action === 'create') {
         create(state.folderId);
@@ -116,16 +116,27 @@ function create(folderId) {
   });
 }
 
-document.querySelector("#bt_save").addEventListener('click', (e) => {
-  save();
+document.querySelector('#bt_changepasswd').addEventListener('click', function () {
+  dialog.showModal();
 });
+let dialog = document.querySelector('dialog');
+dialog.querySelector('#savechangepasswd').addEventListener('click', function () {
+  password = document.querySelector("#changemasterpassword").value;
+  document.querySelector("#changemasterpassword").parentElement.classList.remove("is-dirty");
+  document.querySelector("#changemasterpassword").value = "";
+  dialog.close();
+});
+dialog.querySelector('#cancelchangepasswd').addEventListener('click', function () {
+  dialog.close();
+});
+
 
 function save() {
   let content = pwdList.export();
   encrypt(password, content).then((encrypted) => {
-    
+
     let documentName = document.getElementById('docinfo').value;
-    if (document.getElementById('docinfodrawer').visibility=='') {
+    if (document.getElementById('docinfodrawer').visibility == '') {
       documentName = document.getElementById('docinfodrawer').value;
     }
     if (!documentName.endsWith(".passwd")) {
@@ -141,6 +152,8 @@ function save() {
       document.getElementById('docinfodrawer').value = fileinfo.name;
       document.title = fileinfo.name;
       showInfoMessage("Password DB saved");
+    }, (reason) => {
+      showErrorMessage(reason);
     });
   });
 
@@ -148,23 +161,29 @@ function save() {
 
 function loadPasswordDB() {
   driveAppsUtil.getDocumentContent(id).then((text) => {
-    
+
     decrypt(password, text).then((decrypted) => {
-      pwdList.import(decrypted);
-      pwdList.registerAddListener(save);
-      pwdList.registerRemoveListener(save);
-      driveAppsUtil.getDocumentMeta(id).then((fileinfo) => {
-        document.getElementById('docinfo').value = fileinfo.name;
-        document.getElementById('docinfodrawer').value = fileinfo.name;
-        document.title = fileinfo.name;
-      }, (reason) => {
-        showErrorMessage(reason);
-      });
-          
-      showInfoMessage("Password DB loaded");   });
+      try {
+        pwdList.import(decrypted);
+        pwdList.registerAddListener(save);
+        pwdList.registerRemoveListener(save);
+        driveAppsUtil.getDocumentMeta(id).then((fileinfo) => {
+          document.getElementById('docinfo').value = fileinfo.name;
+          document.getElementById('docinfodrawer').value = fileinfo.name;
+          document.title = fileinfo.name;
+        }, (reason) => {
+          showErrorMessage(reason);
+        });
+
+        showInfoMessage("Password DB loaded");
+
+      } catch (error) {
+        showErrorMessage("Could not open password DB");
+      }
+    });
   }, (reason) => {
     showErrorMessage(reason);
-  }); 
+  });
 }
 
 function showUserImage() {

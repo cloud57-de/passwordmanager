@@ -1,20 +1,20 @@
 import scrypt from 'scrypt-js';
-import buffer from 'buffer';
+import {Buffer} from 'buffer';
 import aesjs from 'aes-js';
 
 
 let encrypt = function (userpwd, content) {
     return new Promise((resolve, reject) => {
-        var password = new buffer.SlowBuffer(userpwd.normalize('NFKC'));
-        var salt = new buffer.SlowBuffer("ashfdaszuaaskldhfk".normalize('NFKC'));
+        
+        var password = new Buffer(userpwd.normalize('NFKC'));
+        var salt = new Buffer("ashfdaszuaaskldhfk".normalize('NFKC'));
 
         var N = 1024, r = 8, p = 1;
         var dkLen = 32;
 
         scrypt(password, salt, N, r, p, dkLen, function (error, progress, key) {
             if (error) {
-                console.log("Error: " + error);
-
+                reject(error);
             } else if (key) {
                 var textBytes = aesjs.utils.utf8.toBytes(content);
 
@@ -26,9 +26,6 @@ let encrypt = function (userpwd, content) {
                 var encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
                 resolve(encryptedHex);
 
-            } else {
-                // update UI with progress complete
-                console.log(progress);
             }
         });
     });
@@ -38,16 +35,15 @@ export { encrypt };
 
 let decrypt = function(userpwd, content) {
     return new Promise((resolve, reject) => {
-        var password = new buffer.SlowBuffer(userpwd.normalize('NFKC'));
-        var salt = new buffer.SlowBuffer("ashfdaszuaaskldhfk".normalize('NFKC'));
 
+        var password = new Buffer(userpwd.normalize('NFKC'));
+        var salt = new Buffer("ashfdaszuaaskldhfk".normalize('NFKC'));
+        
         var N = 1024, r = 8, p = 1;
         var dkLen = 32;
-
         scrypt(password, salt, N, r, p, dkLen, function (error, progress, key) {
             if (error) {
-                console.log("Error: " + error);
-
+                reject(error);
             } else if (key) {
                 var encryptedBytes = aesjs.utils.hex.toBytes(content);
  
@@ -59,9 +55,6 @@ let decrypt = function(userpwd, content) {
                 // Convert our bytes back into text
                 var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
                 resolve(decryptedText);
-            } else {
-                // update UI with progress complete
-                console.log(progress);
             }
         });
     });

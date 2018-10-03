@@ -26,13 +26,13 @@
           <label class="mdl-textfield__label" for="docinfo"></label>
         </div>
         <div class="mdl-layout-spacer"></div>
-<!--        <div id="actions">
-          <button id="bt_save" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
-            <i class="material-icons">save</i>
+        <div id="actions">
+          <button id="bt_changepasswd" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+            <i class="material-icons">security</i>
           </button>
-          <div class="mdl-tooltip" for="bt_save">Save passwords</div>
+          <div class="mdl-tooltip" for="bt_changepasswd">Change master password</div>
         </div>
-      -->        <div class="mdl-layout-spacer mdl-layout--large-screen-only"></div>
+        <div class="mdl-layout-spacer mdl-layout--large-screen-only"></div>
         <img id="userimage" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-layout--large-screen-only is-hidden"></img>
       </div>
     </header>
@@ -151,6 +151,21 @@
               </div>
             </form>
           </div>
+          <dialog class="mdl-dialog">
+            <div class="mdl-dialog__content">
+              <p>
+                Change master password
+              </p>
+              <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="password" id="changemasterpassword">
+                  <label class="mdl-textfield__label" for="changemasterpassword">Password...</label>
+                </div>
+          </div>
+            <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+              <button id="savechangepasswd" type="button" class="mdl-button">Save</button>
+              <button id="cancelchangepasswd" type="button" class="mdl-button">Cancel</button>
+            </div>
+          </dialog>
           <div id="passworditems" class="mdl-grid">
           </div>
           <template id="card-template">
