@@ -10,4 +10,7 @@ export function initFileInfo() {
     document.getElementById('docinfo').addEventListener('change', (e) => {
         changeFileName(e.currentTarget.value);
     });
+    document.getElementById('docinfodrawer').addEventListener('change', (e) => {
+        changeFileName(e.currentTarget.value);
+    });
 }
