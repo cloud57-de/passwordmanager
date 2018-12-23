@@ -129,8 +129,7 @@ export function createNewPasswordDB(name, folder) {
         parents: [folder]
     });
     driveAppsUtil.createDocument(metadata, initialdb).then((fileinfo) => {
-        id = fileinfo.id;
-        loadPasswordDB(id);
+        loadPasswordDB(fileinfo.id);
     });
 
 }
