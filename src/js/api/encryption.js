@@ -6,8 +6,8 @@ import aesjs from 'aes-js';
 let encrypt = function (userpwd, content) {
     return new Promise((resolve, reject) => {
         
-        var password = new Buffer(userpwd.normalize('NFKC'));
-        var salt = new Buffer("ashfdaszuaaskldhfk".normalize('NFKC'));
+        var password = Buffer.from(userpwd.normalize('NFKC'));
+        var salt = Buffer.from("ashfdaszuaaskldhfk".normalize('NFKC'));
 
         var N = 1024, r = 8, p = 1;
         var dkLen = 32;
@@ -36,8 +36,8 @@ export { encrypt };
 let decrypt = function(userpwd, content) {
     return new Promise((resolve, reject) => {
 
-        var password = new Buffer(userpwd.normalize('NFKC'));
-        var salt = new Buffer("ashfdaszuaaskldhfk".normalize('NFKC'));
+        var password = Buffer.from(userpwd.normalize('NFKC'));
+        var salt = Buffer.from("ashfdaszuaaskldhfk".normalize('NFKC'));
         
         var N = 1024, r = 8, p = 1;
         var dkLen = 32;

@@ -1,10 +1,10 @@
-import DriveAppsUtil from 'drive-apps-util';
 import URLSafeBase64 from 'urlsafe-base64';
 import MarterialDesign from 'material-design-lite';
 import doT from 'dot';
-import { PasswordList, PasswordModel } from './model';
-import { encrypt, decrypt } from './encryption';
+import { PasswordList, PasswordModel } from './model/model';
 import Clipboard from 'clipboard';
+import store from './redux/store';
+import { initGoogle } from './api/service';
 
 
 let cardTemplate = doT.template(document.getElementById("card-template").innerHTML);
@@ -84,7 +84,14 @@ let options = {
   ]
 };
 
-let driveAppsUtil = new DriveAppsUtil(options);
+let logListener = () => {
+  console.log("State: " + store.getState());
+};
+
+store.subscribe(logListener);
+
+initGoogle(options);
+/**let driveAppsUtil = new DriveAppsUtil(options);
 driveAppsUtil.init().then(() => {
   driveAppsUtil.login().then((user) => {
     showUserImage();
@@ -102,19 +109,8 @@ driveAppsUtil.init().then(() => {
     }
   });
 });
+ */
 
-function create(folderId) {
-  let initialdb = "";
-  let metadata = JSON.stringify({
-    name: "New Password DB",
-    mimeType: "application/cloud57-password-db",
-    parents: [folderId]
-  });
-  driveAppsUtil.createDocument(metadata, initialdb).then((fileinfo) => {
-    id = fileinfo.id;
-    loadPasswordDB(id);
-  });
-}
 
 document.querySelector('#bt_changepasswd').addEventListener('click', function () {
   dialog.showModal();
@@ -130,7 +126,7 @@ dialog.querySelector('#cancelchangepasswd').addEventListener('click', function (
   dialog.close();
 });
 
-
+/**
 function save() {
   let content = pwdList.export();
   encrypt(password, content).then((encrypted) => {
@@ -185,6 +181,7 @@ function loadPasswordDB() {
     showErrorMessage(reason);
   });
 }
+ */
 
 function showUserImage() {
   document.getElementById('userimage').classList.remove("is-hidden");
