@@ -1,15 +1,52 @@
-import { setMasterPassword } from '../api/service';
+import { setMasterPassword, changeMasterPassword } from '../api/service';
+import { dialogPolyfill } from 'dialog-polyfill';
+
+let setPasswdDialog;
 
 export function initMasterPasswordDialog() {
-    document.querySelector("#bt_master").addEventListener('click', (e) => {
-        document.getElementById('startpage').style.display = "none";
-        let password = document.querySelector("#masterpassword").value;
+    setPasswdDialog =document.getElementById('dl_masterpassword');
+    if (! setPasswdDialog.showModal) {
+        dialogPolyfill.registerDialog(setPasswdDialog);
+    }
+    document.getElementById('applypasswd').addEventListener('click', (e) => {
+        setPasswdDialog.close();
+        let password = document.getElementById("masterpassword").value;
         setMasterPassword(password);
-        document.getElementById('main').style.visibility = "visible";
-        document.getElementById('mainpage').style.visibility = "visible";
-    });     
+    });
+
+    let changePasswdDialog = document.getElementById('dl_changemasterpassword');
+    if (! changePasswdDialog.showModal) {
+        dialogPolyfill.registerDialog(changePasswdDialog);
+    }
+    document.getElementById('cancelchangepasswd').addEventListener('click', (e) => {
+        changePasswdDialog.close();
+    });
+    document.querySelector("#bt_changepasswd").addEventListener('click', (e) => {
+        changePasswdDialog.showModal();
+    });
+    document.getElementById('savechangepasswd').addEventListener('click', (e) => {
+        changePasswdDialog.close();
+        let oldPasswd = document.getElementById('oldmasterpassword').value;
+        let newPasswd = document.getElementById('changemasterpassword').value;
+        let newPasswdRetype = document.getElementById('changemasterpassword_retype').value;
+        if (newPasswd == newPasswdRetype) {
+            changeMasterPassword(oldPasswd, newPasswd);
+        }
+        document.getElementById('oldmasterpassword').value = "";
+        document.getElementById('changemasterpassword').value = "";
+        document.getElementById('changemasterpassword_retype').value = "";
+        document.getElementById('oldmasterpassword').parentElement.classList.remove("is-dirty");
+        document.getElementById('changemasterpassword').parentElement.classList.remove("is-dirty");
+        document.getElementById('changemasterpassword_retype').parentElement.classList.remove("is-dirty");
+
+    });
+
 }
 
 export function showMasterPasswordDialog() {
-    document.getElementById('password_dialog').style.display = "block";
+    document.getElementById('startpage').style.display = "none";
+    document.getElementById('main').style.visibility = "visible";
+    document.getElementById('mainpage').style.visibility = "visible";
+    setPasswdDialog.showModal();
 }
+

@@ -58,9 +58,14 @@ export function importPasswordList() {
     let masterPassword = store.getState().get('googleDocument').get('masterPassword');
     if (text.length > 0) {
         decrypt(masterPassword, text).then((decrypted) => {
-            let modelList = JSON.parse(decrypted);
-            let importAction = createImportPasswordListAction(modelList);
-            store.dispatch(importAction);
+            try {
+                let modelList = JSON.parse(decrypted);
+                let importAction = createImportPasswordListAction(modelList);
+                store.dispatch(importAction);
+            }
+            catch (error) {
+                
+            }
         });
     }
 }
@@ -70,7 +75,7 @@ export function exportPasswordList() {
 }
 
 export function changeMasterPassword(oldPasswd, newPasswd) {
-    if (store.getState().get('masterPassword') == oldPasswd) {
+    if (store.getState().get('googleDocument').get('masterPassword') == oldPasswd) {
         let changeMasterAction = createChangeMasterPasswordAction(newPasswd);
         store.dispatch(changeMasterAction);
     }

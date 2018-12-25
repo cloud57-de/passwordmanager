@@ -2,7 +2,7 @@ import MaterialDesign from 'material-design-lite';
 import { store } from './redux/store';
 import { initGoogle, login, loadPasswordDB, setMasterPassword, importPasswordList, createNewPasswordDB, exportPasswordList, savePasswordDB, addPassword } from './api/service';
 import { GOOGLE_INIT_SUCCESS, GOOGLE_LOGIN_SUCCESS, GOOGLE_LOADDOCUMENT_SUCCESS, GOOGLE_FILEINFO_SUCCESS } from './redux/googleaction';
-import { SET_MASTERPASSWORD, ADD_PASSWORD, REMOVE_PASSWORD, IMPORT_PASSWORDLIST } from './redux/action';
+import { SET_MASTERPASSWORD, ADD_PASSWORD, REMOVE_PASSWORD, IMPORT_PASSWORDLIST, CHANGE_MASTERPASSWORD } from './redux/action';
 import { showUserImage} from './ui/userimage';
 import { setDocumentInfo } from './ui/fileinfo';
 import { initMasterPasswordDialog, showMasterPasswordDialog} from './ui/masterpassword';
@@ -55,6 +55,9 @@ let processFlowListener = () => {
   }
   else if (actionType === SET_MASTERPASSWORD) {
     importPasswordList();
+  }
+  else if (actionType === CHANGE_MASTERPASSWORD) {
+    savePasswordDB();
   }
   else if (actionType === ADD_PASSWORD || actionType === REMOVE_PASSWORD) {
     savePasswordDB();

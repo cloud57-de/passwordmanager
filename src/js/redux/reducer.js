@@ -68,7 +68,10 @@ function passwordManagerApp(state = initialState, action) {
                 .set('infomsg', 'Import Password DB');
             break;
         case CHANGE_MASTERPASSWORD:
-            newState = state.set('masterPassword', action.newPasswd);
+            newState = state.set('infomsg', "Masterpassword changed")
+                            .set('googleDocument', state.get('googleDocument')
+                                .set('masterPassword', action.newPasswd)
+            );
             break;
         case SET_MASTERPASSWORD:
             newState = state.set('googleDocument', state.get('googleDocument')
