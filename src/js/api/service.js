@@ -6,7 +6,9 @@ import {
     createImportPasswordListAction,
     createSetMasterPasswordAction,
     createResetNotificationAction,
-    createChangeFileNameAction
+    createChangeFileNameAction,
+    createShowErrorNotificationActtion,
+    createWrongPasswordAction
 } from '../redux/action';
 import { store } from '../redux/store';
 import {
@@ -64,7 +66,7 @@ export function importPasswordList() {
                 store.dispatch(importAction);
             }
             catch (error) {
-                
+                store.dispatch(createWrongPasswordAction('The masterpassword is not correct'));
             }
         });
     }
@@ -78,6 +80,9 @@ export function changeMasterPassword(oldPasswd, newPasswd) {
     if (store.getState().get('googleDocument').get('masterPassword') == oldPasswd) {
         let changeMasterAction = createChangeMasterPasswordAction(newPasswd);
         store.dispatch(changeMasterAction);
+    }
+    else {
+        store.dispatch(createShowErrorNotificationActtion('Password not changed, because the current password is not correct'));
     }
 }
 
@@ -167,6 +172,10 @@ export function changeFileName(name) {
     }
     store.dispatch(createChangeFileNameAction(name));
     savePasswordDB();
+}
+
+export function showErrorMessage(error) {
+    store.dispatch(createShowErrorNotificationActtion(error));
 }
 
 export function resetNotification() {

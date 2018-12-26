@@ -10,6 +10,8 @@ export const IMPORT_PASSWORDLIST = 'IMPORT_PASSWORDLIST';
 export const SET_MASTERPASSWORD = 'SET_MASTERPASSWORD';
 export const RESET_NOTIFICATION = 'RESET_NOTIFICATION';
 export const CHANGE_FILENAME = 'CHANGE_FILENAME';
+export const SHOW_ERROR_NOTIFICATION = 'SHOW_ERROR_NOTIFICATION';
+export const WRONG_MASTERPASSWORD = 'WRONG_MASTERPASSWORD';
 
 
 /*
@@ -46,4 +48,12 @@ export function createResetNotificationAction() {
 
 export function createChangeFileNameAction(name) {
   return { type: CHANGE_FILENAME, name};
+}
+
+export function createShowErrorNotificationActtion(error) {
+  return { type: SHOW_ERROR_NOTIFICATION, error};
+}
+
+export function createWrongPasswordAction(error) {
+  return { type: WRONG_MASTERPASSWORD, error }
 }

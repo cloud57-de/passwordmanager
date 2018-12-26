@@ -6,7 +6,9 @@ import {
     IMPORT_PASSWORDLIST,
     SET_MASTERPASSWORD,
     RESET_NOTIFICATION,
-    CHANGE_FILENAME
+    CHANGE_FILENAME,
+    SHOW_ERROR_NOTIFICATION,
+    WRONG_MASTERPASSWORD
 } from "./action";
 import {
     GOOGLE_INIT,
@@ -69,14 +71,17 @@ function passwordManagerApp(state = initialState, action) {
             break;
         case CHANGE_MASTERPASSWORD:
             newState = state.set('infomsg', "Masterpassword changed")
-                            .set('googleDocument', state.get('googleDocument')
-                                .set('masterPassword', action.newPasswd)
-            );
+                .set('googleDocument', state.get('googleDocument')
+                    .set('masterPassword', action.newPasswd)
+                );
             break;
         case SET_MASTERPASSWORD:
             newState = state.set('googleDocument', state.get('googleDocument')
                 .set('masterPassword', action.password)
             );
+            break;
+        case WRONG_MASTERPASSWORD:
+            newState = state.set('status', 'wrong-masterpassword').set('errormsg', action.error);
             break;
         case CHANGE_FILENAME:
             let fileinfo = state.get('googleDocument').get('fileinfo');
@@ -84,6 +89,9 @@ function passwordManagerApp(state = initialState, action) {
             newState = state.set('googleDocument', state.get('googleDocument')
                 .set('fileinfo', fileinfo)
             );
+            break;
+        case SHOW_ERROR_NOTIFICATION:
+            newState = state.set('errormsg', action.error);
             break;
         case GOOGLE_INIT:
             newState = state.set('status', 'google-init-pending');
