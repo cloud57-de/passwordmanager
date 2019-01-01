@@ -29,7 +29,14 @@ let logListener = () => {
   console.log("State: " + store.getState());
 };
 
-store.subscribe(logListener);
+let gtagListener = () => {
+  let state = store.getState();
+  let actionType = state.get('actionType');
+  gtag('event', actionType);
+}
+
+
+store.subscribe(gtagListener);
 
 let processFlowListener = () => {
   let state = store.getState();
