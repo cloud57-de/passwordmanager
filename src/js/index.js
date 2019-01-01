@@ -3,9 +3,9 @@ import { store } from './redux/store';
 import { initGoogle, login, loadPasswordDB, setMasterPassword, importPasswordList, createNewPasswordDB, exportPasswordList, savePasswordDB, addPassword } from './api/service';
 import { GOOGLE_INIT_SUCCESS, GOOGLE_LOGIN_SUCCESS, GOOGLE_LOADDOCUMENT_SUCCESS, GOOGLE_FILEINFO_SUCCESS } from './redux/googleaction';
 import { SET_MASTERPASSWORD, ADD_PASSWORD, REMOVE_PASSWORD, IMPORT_PASSWORDLIST, CHANGE_MASTERPASSWORD, WRONG_MASTERPASSWORD } from './redux/action';
-import { showUserImage} from './ui/userimage';
+import { showUserImage } from './ui/userimage';
 import { setDocumentInfo } from './ui/fileinfo';
-import { initMasterPasswordDialog, showMasterPasswordDialog} from './ui/masterpassword';
+import { initMasterPasswordDialog, showMasterPasswordDialog } from './ui/masterpassword';
 import { hideSplash } from './ui/splash';
 import { initNewPassword, showPassword, showPasswordList } from './ui/password';
 import { showErrorMessage, showInfoMessage } from './ui/notification';
@@ -29,14 +29,23 @@ let logListener = () => {
   console.log("State: " + store.getState());
 };
 
-let gtagListener = () => {
+let gtagActionListener = () => {
   let state = store.getState();
   let actionType = state.get('actionType');
   gtag('event', actionType);
 }
+store.subscribe(gtagActionListener);
 
-
-store.subscribe(gtagListener);
+let gtagErrorListener = () => {
+  let state = store.getState();
+  if (state.has('errormsg')) {
+    gtag('event', 'exception', {
+      'description': state.get('errormsg'),
+      'fatal': false
+    });
+  }
+}
+store.subscribe(gtagErrorListener);
 
 let processFlowListener = () => {
   let state = store.getState();
@@ -70,13 +79,12 @@ let processFlowListener = () => {
     savePasswordDB();
   }
   else if (actionType === GOOGLE_FILEINFO_SUCCESS) {
-    console.log(JSON.stringify(state.get('googleDocument').get('fileinfo')));
     setDocumentInfo(state.get('googleDocument').get('fileinfo').name);
   }
-  else if(actionType === IMPORT_PASSWORDLIST) {
+  else if (actionType === IMPORT_PASSWORDLIST) {
     showPasswordList(store.getState().get('passwordList'));
   }
-  
+
 };
 store.subscribe(processFlowListener);
 

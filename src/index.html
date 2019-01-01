@@ -16,7 +16,7 @@
   <link rel="apple-touch-icon" sizes="144x144" href="/img/apple-icon-144x144.png">
   <link rel="apple-touch-icon" sizes="152x152" href="/img/apple-icon-152x152.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-icon-180x180.png">
-  <link rel="icon" type="image/png" sizes="192x192"  href="/img/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/img/android-icon-192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
@@ -59,38 +59,38 @@
     <div class="mdl-layout__drawer">
       <span class="mdl-layout-title">Cloud57 Password Manager</span>
       <div class="mdl-textfield mdl-js-textfield mdl-layout-title">
-          <input class="mdl-textfield__input" type="text" id="docinfodrawer">
-          <label class="mdl-textfield__label" for="docinfodrawer"></label>
-        </div>
+        <input class="mdl-textfield__input" type="text" id="docinfodrawer">
+        <label class="mdl-textfield__label" for="docinfodrawer"></label>
+      </div>
 
       <form action="javascript:document.activeElement.blur();">
-          <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--12-col">
-              <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="text" id="newnamedrawer">
-                <label class="mdl-textfield__label" for="newnamedrawer">Name...</label>
-              </div>
-            </div>
-            <div class="mdl-cell mdl-cell--12-col">
-              <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="text" id="newaccountdrawer">
-                <label class="mdl-textfield__label" for="newaccountdrawer">Account...</label>
-              </div>
-            </div>
-            <div class="mdl-cell mdl-cell--12-col">
-              <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="password" id="newpassworddrawer">
-                <label class="mdl-textfield__label" for="newpassworddrawer">Password...</label>
-              </div>
-            </div>
-            <div class="mdl-cell mdl-cell--12-col">
-              <button type="submit" id="bt_new_drawer" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
-                <i class="material-icons">add</i>
-              </button>
-              <div class="mdl-tooltip" for="bt_new_drawer">Add</div>
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--12-col">
+            <div class="mdl-textfield mdl-js-textfield">
+              <input class="mdl-textfield__input" type="text" id="newnamedrawer">
+              <label class="mdl-textfield__label" for="newnamedrawer">Name...</label>
             </div>
           </div>
-        </form>
+          <div class="mdl-cell mdl-cell--12-col">
+            <div class="mdl-textfield mdl-js-textfield">
+              <input class="mdl-textfield__input" type="text" id="newaccountdrawer">
+              <label class="mdl-textfield__label" for="newaccountdrawer">Account...</label>
+            </div>
+          </div>
+          <div class="mdl-cell mdl-cell--12-col">
+            <div class="mdl-textfield mdl-js-textfield">
+              <input class="mdl-textfield__input" type="password" id="newpassworddrawer">
+              <label class="mdl-textfield__label" for="newpassworddrawer">Password...</label>
+            </div>
+          </div>
+          <div class="mdl-cell mdl-cell--12-col">
+            <button type="submit" id="bt_new_drawer" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+              <i class="material-icons">add</i>
+            </button>
+            <div class="mdl-tooltip" for="bt_new_drawer">Add</div>
+          </div>
+        </div>
+      </form>
 
     </div>
     <!-- Left aligned menu below button -->
@@ -104,7 +104,8 @@
                 <h2 class="mdl-card__title-text">Cloud57 Password Manager</h2>
               </div>
               <div class="mdl-card__supporting-text">
-                Stores passwords on Google Drive. If you want to use this app, you have to install it to your Drive Apps and then create
+                Stores passwords on Google Drive. If you want to use this app, you have to install it to your Drive
+                Apps and then create
                 a new Password Manager file.
               </div>
               <div class="mdl-card__actions mdl-card--border">
@@ -154,44 +155,44 @@
             </form>
           </div>
           <dialog class="mdl-dialog" id="dl_changemasterpassword">
-              <form action="javascript:document.activeElement.blur();">
-            <div class="mdl-dialog__content">
-              <p>
-                Change master password
-              </p>
-              <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="password" id="oldmasterpassword">
-                <label class="mdl-textfield__label" for="oldmasterpassword">Old password</label>
+            <form action="javascript:document.activeElement.blur();">
+              <div class="mdl-dialog__content">
+                <p>
+                  Change master password
+                </p>
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="password" id="oldmasterpassword">
+                  <label class="mdl-textfield__label" for="oldmasterpassword">Old password</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="password" id="changemasterpassword">
+                  <label class="mdl-textfield__label" for="changemasterpassword">New password</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="password" id="changemasterpassword_retype">
+                  <label class="mdl-textfield__label" for="changemasterpassword_retype">Retype new password</label>
+                </div>
               </div>
-              <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="password" id="changemasterpassword">
-                <label class="mdl-textfield__label" for="changemasterpassword">New password</label>
+              <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+                <button id="savechangepasswd" type="submit" class="mdl-button">Save</button>
+                <button id="cancelchangepasswd" type="button" class="mdl-button">Cancel</button>
               </div>
-              <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="password" id="changemasterpassword_retype">
-                <label class="mdl-textfield__label" for="changemasterpassword_retype">Retype new password</label>
-              </div>
-          </div>
-            <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
-              <button id="savechangepasswd" type="submit" class="mdl-button">Save</button>
-              <button id="cancelchangepasswd" type="button" class="mdl-button">Cancel</button>
-            </div>
             </form>
           </dialog>
           <dialog class="mdl-dialog" id="dl_masterpassword">
-              <form action="javascript:document.activeElement.blur();">
-                <div class="mdl-dialog__content">
-              <p>
-                Master password
-              </p>
-              <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="password" id="masterpassword">
-                <label class="mdl-textfield__label" for="masterpassword">Password</label>
+            <form action="javascript:document.activeElement.blur();">
+              <div class="mdl-dialog__content">
+                <p>
+                  Master password
+                </p>
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="password" id="masterpassword">
+                  <label class="mdl-textfield__label" for="masterpassword">Password</label>
+                </div>
               </div>
-          </div>
-            <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
-              <button id="applypasswd" type="submit" class="mdl-button">Apply</button>
-            </div>
+              <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+                <button id="applypasswd" type="submit" class="mdl-button">Apply</button>
+              </div>
             </form>
           </dialog>
           <div id="passworditems" class="mdl-grid">
@@ -241,11 +242,13 @@
       <div class="mdl-mini-footer__right-section">
         <ul class="mdl-mini-footer__link-list">
           <li><a id="support" href="https://github.com/cloud57-de/passwordmanager/issues" class="footer-nav" target="_blank">Support</a></li>
-          <div class="mdl-tooltip mdl-tooltip--top" for="support">Create new feature requests, bug reports or ask for help
+          <div class="mdl-tooltip mdl-tooltip--top" for="support">Create new feature requests, bug reports or ask for
+            help
           </div>
           <li><a id="impressum" href="https://www.cloud57.de/?showImp" class="footer-nav" target="_blank">Imprint</a></li>
           <div class="mdl-tooltip mdl-tooltip--top" for="impressum">Read our imprint</div>
-          <li><a id="dataprotection" href="https://www.cloud57.de/?showImp" class="footer-nav" target="_blank">Data protection</a></li>
+          <li><a id="dataprotection" href="https://www.cloud57.de/?showImp" class="footer-nav" target="_blank">Data
+              protection</a></li>
           <div class="mdl-tooltip mdl-tooltip--top" for="dataprotection">Read more about our data protection</div>
         </ul>
       </div>
@@ -255,17 +258,17 @@
     <div class="mdl-snackbar__text"></div>
     <button type="button" class="mdl-snackbar__action"></button>
   </div>
-  <script src="js/index.js"></script>
+
   <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112909812-4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112909812-4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'UA-112909812-4');
-</script>
-
+    gtag('config', 'UA-112909812-4');
+  </script>
+  <script src="js/index.js"></script>
 </body>
 
 </html>
