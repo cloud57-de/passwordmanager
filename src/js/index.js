@@ -17,7 +17,7 @@ initNewPassword();
 initFileInfo();
 
 let options = {
-  "clientId": "540050774904-tigjal4ghtm23hkkvp1edperl5n0n0s8.apps.googleusercontent.com",
+  "clientId": "540050774904-2uedmhp8t7vlktpsslq4ubt33gflq1m7.apps.googleusercontent.com",
   "scope": [
     "profile",
     "https://www.googleapis.com/auth/drive.file",
