@@ -32,17 +32,21 @@ let logListener = () => {
 let gtagActionListener = () => {
   let state = store.getState();
   let actionType = state.get('actionType');
-  gtag('event', actionType);
+  if (typeof gtag === "function") {
+    gtag('event', actionType);
+  }
 }
 store.subscribe(gtagActionListener);
 
 let gtagErrorListener = () => {
   let state = store.getState();
   if (state.has('errormsg')) {
-    gtag('event', 'exception', {
-      'description': state.get('errormsg'),
-      'fatal': false
-    });
+    if (typeof gtag === "function") {
+      gtag('event', 'exception', {
+        'description': state.get('errormsg'),
+        'fatal': false
+      });
+    }
   }
 }
 store.subscribe(gtagErrorListener);
