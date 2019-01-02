@@ -180,11 +180,31 @@
               </div>
             </form>
           </dialog>
+          <dialog class="mdl-dialog" id="dl_setmasterpassword">
+            <form action="javascript:document.activeElement.blur();">
+              <div class="mdl-dialog__content">
+                <p>
+                  Enter a new master password for your password db
+                </p>
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="password" id="setmasterpassword">
+                  <label class="mdl-textfield__label" for="setmasterpassword">New password</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="password" id="setmasterpassword_retype">
+                  <label class="mdl-textfield__label" for="setmasterpassword_retype">Retype new password</label>
+                </div>
+              </div>
+              <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+                <button id="setpasswdbutton" type="submit" class="mdl-button">Set password</button>
+              </div>
+            </form>
+          </dialog>
           <dialog class="mdl-dialog" id="dl_masterpassword">
             <form action="javascript:document.activeElement.blur();">
               <div class="mdl-dialog__content">
                 <p>
-                  Master password
+                  Enter your master password
                 </p>
                 <div class="mdl-textfield mdl-js-textfield">
                   <input class="mdl-textfield__input" type="password" id="masterpassword">

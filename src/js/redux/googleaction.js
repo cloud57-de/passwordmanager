@@ -7,6 +7,7 @@ export const GOOGLE_LOGIN_SUCCESS = 'GOOGLE_LOGIN_SUCCESS';
 export const GOOGLE_LOGIN_ERROR = 'GOOGLE_LOGIN_ERROR';
 
 export const GOOGLE_LOADDOCUMENT = 'GOOGLE_LOADDOCUMENT';
+export const GOOGLE_LOADNEWDOCUMENT = 'GOOGLE_LOADNEWDOCUMENT';
 export const GOOGLE_LOADDOCUMENT_SUCCESS = 'GOOGLE_LOADDOCUMENT_SUCCESS';
 export const GOOGLE_LOADDOCUMENT_ERROR = 'GOOGLE_LOADDOCUMENT_ERROR';
 
@@ -44,6 +45,10 @@ export function createGoogleLoginErrorAction(error) {
 
 export function createGoogleLoadDocumentAction(id) {
     return { type: GOOGLE_LOADDOCUMENT, id};
+}
+
+export function createGoogleLoadNewDocumentAction(id) {
+    return { type: GOOGLE_LOADNEWDOCUMENT, id};
 }
 
 export function createGoogleLoadDocumentSuccessAction(text) {

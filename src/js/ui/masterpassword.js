@@ -2,11 +2,12 @@ import { setMasterPassword, changeMasterPassword, showErrorMessage } from '../ap
 import { dialogPolyfill } from 'dialog-polyfill';
 
 let setPasswdDialog;
+let setNewPasswdDialog;
 
 export function initMasterPasswordDialog() {
     let registerDialog = dialogPolyfill;
-    setPasswdDialog =document.getElementById('dl_masterpassword');
-    if (! setPasswdDialog.showModal) {
+    setPasswdDialog = document.getElementById('dl_masterpassword');
+    if (!setPasswdDialog.showModal) {
         if (typeof dialogPolyfill !== "function") {
             registerDialog = window.dialogPolyfill
         }
@@ -19,7 +20,7 @@ export function initMasterPasswordDialog() {
     });
 
     let changePasswdDialog = document.getElementById('dl_changemasterpassword');
-    if (! changePasswdDialog.showModal) {
+    if (!changePasswdDialog.showModal) {
         registerDialog.registerDialog(changePasswdDialog);
     }
     document.getElementById('cancelchangepasswd').addEventListener('click', (e) => {
@@ -30,7 +31,7 @@ export function initMasterPasswordDialog() {
         document.getElementById('oldmasterpassword').parentElement.classList.remove("is-dirty");
         document.getElementById('changemasterpassword').parentElement.classList.remove("is-dirty");
         document.getElementById('changemasterpassword_retype').parentElement.classList.remove("is-dirty");
-});
+    });
     document.querySelector("#bt_changepasswd").addEventListener('click', (e) => {
         changePasswdDialog.showModal();
     });
@@ -53,8 +54,26 @@ export function initMasterPasswordDialog() {
         }
 
     });
+    setNewPasswdDialog = document.getElementById('dl_setmasterpassword');
+    if (!setNewPasswdDialog.showModal) {
+        registerDialog.registerDialog(setNewPasswdDialog);
+    }
+    document.getElementById('setpasswdbutton').addEventListener('click', (e) => {
+
+        let newPasswd = document.getElementById('setmasterpassword').value;
+        let newPasswdRetype = document.getElementById('setmasterpassword_retype').value;
+        if (newPasswd == newPasswdRetype) {
+            setNewPasswdDialog.close();
+            setMasterPassword(password);
+        }
+        else {
+            showErrorMessage("New password and retype new password are different");
+        }
+    });
 
 }
+
+
 
 export function showMasterPasswordDialog() {
     document.getElementById('startpage').style.display = "none";
@@ -63,3 +82,9 @@ export function showMasterPasswordDialog() {
     setPasswdDialog.showModal();
 }
 
+export function showSetMasterPasswordDialog() {
+    document.getElementById('startpage').style.display = "none";
+    document.getElementById('main').style.visibility = "visible";
+    document.getElementById('mainpage').style.visibility = "visible";
+    setNewPasswdDialog.showModal();
+}

@@ -5,7 +5,7 @@ import { GOOGLE_INIT_SUCCESS, GOOGLE_LOGIN_SUCCESS, GOOGLE_LOADDOCUMENT_SUCCESS,
 import { SET_MASTERPASSWORD, ADD_PASSWORD, REMOVE_PASSWORD, IMPORT_PASSWORDLIST, CHANGE_MASTERPASSWORD, WRONG_MASTERPASSWORD } from './redux/action';
 import { showUserImage } from './ui/userimage';
 import { setDocumentInfo } from './ui/fileinfo';
-import { initMasterPasswordDialog, showMasterPasswordDialog } from './ui/masterpassword';
+import { initMasterPasswordDialog, showMasterPasswordDialog, showSetMasterPasswordDialog } from './ui/masterpassword';
 import { hideSplash } from './ui/splash';
 import { initNewPassword, showPassword, showPasswordList } from './ui/password';
 import { showErrorMessage, showInfoMessage } from './ui/notification';
@@ -76,8 +76,16 @@ let processFlowListener = () => {
       }
     }
   }
-  else if (actionType === GOOGLE_LOADDOCUMENT_SUCCESS || actionType === WRONG_MASTERPASSWORD) {
+  else if (actionType === GOOGLE_LOADDOCUMENT_SUCCESS) {
+    if (state.get('googleDocument').has('isnew')) {
+      showSetMasterPasswordDialog();
+    }
+    else {
+      showMasterPasswordDialog();
+    }
     history.pushState("{}", "Load document", location.origin + "/?id=" + state.get("googleDocument").get("id"));
+  }
+  else if (actionType === WRONG_MASTERPASSWORD) {
     showMasterPasswordDialog();
   }
   else if (actionType === SET_MASTERPASSWORD) {

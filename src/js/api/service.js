@@ -19,6 +19,7 @@ import {
     createGoogleLoginSuccessAction,
     createGoogleLoginErrorAction,
     createGoogleLoadDocumentAction,
+    createGoogleLoadNewDocumentAction,
     createGoogleLoadDocumentSuccessAction,
     createGoogleLoadDocumentErrorAction,
     createGoogleFileInfoAction,
@@ -108,9 +109,14 @@ export function login() {
     }
 }
 
-export function loadPasswordDB(id) {
+export function loadPasswordDB(id, isNew) {
     if (driveAppsUtil != undefined) {
-        store.dispatch(createGoogleLoadDocumentAction(id));
+        if (isNew) {
+            store.dispatch(createGoogleLoadNewDocumentAction(id));
+        }
+        else {
+            store.dispatch(createGoogleLoadDocumentAction(id));
+        }
         driveAppsUtil.getDocumentContent(id).then((text) => {
             store.dispatch(createGoogleLoadDocumentSuccessAction(text));
             store.dispatch(createGoogleFileInfoAction());
@@ -139,7 +145,7 @@ export function createNewPasswordDB(name, folder) {
         parents: [folder]
     });
     driveAppsUtil.createDocument(metadata, initialdb).then((fileinfo) => {
-        loadPasswordDB(fileinfo.id);
+        loadPasswordDB(fileinfo.id, true);
     });
 
 }

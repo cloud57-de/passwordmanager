@@ -18,6 +18,7 @@ import {
     GOOGLE_LOGIN_SUCCESS,
     GOOGLE_LOGIN_ERROR,
     GOOGLE_LOADDOCUMENT,
+    GOOGLE_LOADNEWDOCUMENT,
     GOOGLE_LOADDOCUMENT_SUCCESS,
     GOOGLE_LOADDOCUMENT_ERROR,
     GOOGLE_FILEINFO_SUCCESS,
@@ -112,6 +113,14 @@ function passwordManagerApp(state = initialState, action) {
             break;
         case GOOGLE_LOGIN_ERROR:
             newState = state.set('status', 'google-login-error').set('errormsg', action.error);
+            break;
+        case GOOGLE_LOADNEWDOCUMENT:
+            newState = state.set('status', 'google-loaddocument-pending')
+                .set('googleDocument', state.get('googleDocument')
+                    .set('id', action.id)
+                    .set('isLoaded', false)
+                    .set('isnew', true)
+                );
             break;
         case GOOGLE_LOADDOCUMENT:
             newState = state.set('status', 'google-loaddocument-pending')
