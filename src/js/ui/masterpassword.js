@@ -4,9 +4,13 @@ import { dialogPolyfill } from 'dialog-polyfill';
 let setPasswdDialog;
 
 export function initMasterPasswordDialog() {
+    let registerDialog = dialogPolyfill;
     setPasswdDialog =document.getElementById('dl_masterpassword');
     if (! setPasswdDialog.showModal) {
-        dialogPolyfill.registerDialog(setPasswdDialog);
+        if (typeof dialogPolyfill !== "function") {
+            registerDialog = window.dialogPolyfill
+        }
+        registerDialog.registerDialog(setPasswdDialog);
     }
     document.getElementById('applypasswd').addEventListener('click', (e) => {
         setPasswdDialog.close();
@@ -16,7 +20,7 @@ export function initMasterPasswordDialog() {
 
     let changePasswdDialog = document.getElementById('dl_changemasterpassword');
     if (! changePasswdDialog.showModal) {
-        dialogPolyfill.registerDialog(changePasswdDialog);
+        registerDialog.registerDialog(changePasswdDialog);
     }
     document.getElementById('cancelchangepasswd').addEventListener('click', (e) => {
         changePasswdDialog.close();
