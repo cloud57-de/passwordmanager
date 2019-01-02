@@ -6,7 +6,7 @@ let setPasswdDialog;
 export function initMasterPasswordDialog() {
     setPasswdDialog =document.getElementById('dl_masterpassword');
     if (! setPasswdDialog.showModal) {
-        if (dialogPolyfill instanceof 'function') {
+        if (typeof dialogPolyfill === "function") {
             dialogPolyfill.registerDialog(setPasswdDialog);
         }
         else {
