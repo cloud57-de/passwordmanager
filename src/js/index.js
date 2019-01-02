@@ -61,16 +61,23 @@ let processFlowListener = () => {
     showUserImage();
     if (window.location.search) {
       hideSplash();
-      let stateURL = JSON.parse(decodeURI(window.location.search.substr(7)));
-      if (stateURL.action === "open") {
-        loadPasswordDB(stateURL.ids[0]);
+      let searchString = window.location.search;
+      if (searchString.startsWith("?id=")) {
+        loadPasswordDB(searchString.substr(4));
       }
-      else if (stateURL.action === 'create') {
-        createNewPasswordDB("New Password DB", stateURL.folderId);
+      else {
+        let stateURL = JSON.parse(decodeURI(searchString.substr(7)));
+        if (stateURL.action === "open") {
+          loadPasswordDB(stateURL.ids[0]);
+        }
+        else if (stateURL.action === 'create') {
+          createNewPasswordDB("New Password DB", stateURL.folderId);
+        }
       }
     }
   }
   else if (actionType === GOOGLE_LOADDOCUMENT_SUCCESS || actionType === WRONG_MASTERPASSWORD) {
+    history.pushState("{}", "Load document", location.origin + "/?id=" + state.get("googleDocument").get("id"));
     showMasterPasswordDialog();
   }
   else if (actionType === SET_MASTERPASSWORD) {
