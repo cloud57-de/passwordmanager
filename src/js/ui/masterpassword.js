@@ -6,12 +6,10 @@ let setPasswdDialog;
 export function initMasterPasswordDialog() {
     setPasswdDialog =document.getElementById('dl_masterpassword');
     if (! setPasswdDialog.showModal) {
-        if (typeof dialogPolyfill === "function") {
-            dialogPolyfill.registerDialog(setPasswdDialog);
+        if (typeof dialogPolyfill !== "function") {
+            dialogPolyfill = window.dialogPolyfill
         }
-        else {
-            window.dialogPolyfill.registerDialog(setPasswdDialog);
-        }
+        dialogPolyfill.registerDialog(setPasswdDialog);
     }
     document.getElementById('applypasswd').addEventListener('click', (e) => {
         setPasswdDialog.close();
