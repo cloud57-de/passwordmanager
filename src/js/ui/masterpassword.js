@@ -64,7 +64,7 @@ export function initMasterPasswordDialog() {
         let newPasswdRetype = document.getElementById('setmasterpassword_retype').value;
         if (newPasswd == newPasswdRetype) {
             setNewPasswdDialog.close();
-            setMasterPassword(password);
+            setMasterPassword(newPasswd);
         }
         else {
             showErrorMessage("New password and retype new password are different");
