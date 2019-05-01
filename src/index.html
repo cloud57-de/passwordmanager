@@ -216,6 +216,22 @@
               </div>
             </form>
           </dialog>
+          <dialog class="mdl-dialog" id="dl_editpassword">
+            <form action="javascript:document.activeElement.blur();">
+              <div class="mdl-dialog__content">
+                <p>
+                  Enter new password
+                </p>
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" type="password" id="editpassword">
+                  <label class="mdl-textfield__label" for="editpassword">Password</label>
+                </div>
+              </div>
+              <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+                <button id="editpasswd" type="submit" class="mdl-button">Apply</button>
+              </div>
+            </form>
+          </dialog>
           <div id="passworditems" class="mdl-grid">
           </div>
           <template id="card-template">
@@ -240,6 +256,9 @@
                 <div class="mdl-card__menu">
                   <button id="{{=it.id}}" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect bt_show_pwd">
                     <i class="material-icons">laptop</i>
+                  </button>
+                  <button id="{{=it.id}}" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect bt_edit_pwd">
+                    <i class="material-icons">create</i>
                   </button>
                   <button id="{{=it.id}}" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect bt_delete">
                     <i class="material-icons">delete</i>

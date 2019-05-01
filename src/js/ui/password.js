@@ -1,13 +1,32 @@
 import { PasswordModel } from '../model/model';
-import { addPassword, removepassword, getPassword } from '../api/service';
+import { addPassword, removepassword, getPassword, editPassword } from '../api/service';
 import doT from 'dot';
 import Clipboard from 'clipboard';
+import { dialogPolyfill } from 'dialog-polyfill';
 
 
 let cardTemplate = doT.template(document.getElementById("card-template").innerHTML);
 new Clipboard(".clipboard")
 
+let changePasswdDialog;
+
 export function initNewPassword() {
+    let registerDialog = dialogPolyfill;
+
+    changePasswdDialog = document.getElementById('dl_editpassword');
+    if (!changePasswdDialog.showModal) {
+        registerDialog.registerDialog(changePasswdDialog);
+    }
+    document.getElementById('editpasswd').addEventListener('click', (e) => {
+        changePasswdDialog.close();
+        let model = changePasswdDialog.model;
+        model.password = document.getElementById("editpassword").value;
+        editPassword(model);
+        document.getElementById("editpassword").value = "";
+        sav
+    });
+
+
     document.querySelector("#bt_new").addEventListener('click', (e) => {
         let name = document.querySelector("#newname").value;
         let account = document.querySelector("#newaccount").value;
@@ -54,6 +73,12 @@ export function showPassword(newItem) {
     newElement.querySelector(".bt_show_pwd").addEventListener('click', (e) => {
         showPwdMessage(getPassword(e.currentTarget.id).password);
     });
+
+    newElement.querySelector(".bt_edit_pwd").addEventListener('click', (e) => {
+        changePasswdDialog.model = getPassword(e.currentTarget.id);
+        changePasswdDialog.showModal();
+    });
+
     document.querySelector('#passworditems').appendChild(newElement.firstElementChild);
 }
 
@@ -77,3 +102,4 @@ function showPwdMessage(message) {
         }
     );
 }
+
