@@ -80,6 +80,7 @@ export function showPassword(newItem) {
     });
 
     document.querySelector('#passworditems').appendChild(newElement.firstElementChild);
+    componentHandler.upgradeDom('MaterialMenu', 'mdl-menu');
 }
 
 export function removePasswordCard(id) {
