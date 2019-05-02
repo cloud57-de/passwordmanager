@@ -23,7 +23,6 @@ export function initNewPassword() {
         model.password = document.getElementById("editpassword").value;
         editPassword(model);
         document.getElementById("editpassword").value = "";
-        sav
     });
 
 
