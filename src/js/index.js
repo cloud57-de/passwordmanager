@@ -12,9 +12,6 @@ import { showErrorMessage, showInfoMessage } from './ui/notification';
 import { initFileInfo } from './ui/fileinfo';
 
 
-initMasterPasswordDialog();
-initNewPassword();
-initFileInfo();
 
 let options = {
   "clientId": "540050774904-dd0d8o61ngdqpr8cviqrnk7jup5n7v38.apps.googleusercontent.com",
@@ -119,5 +116,10 @@ let notificationListener = () => {
 store.subscribe(notificationListener);
 
 initGoogle(options);
+
+
+initMasterPasswordDialog();
+initNewPassword();
+initFileInfo();
 
 
