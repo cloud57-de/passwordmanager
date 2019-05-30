@@ -11,21 +11,6 @@ new Clipboard(".clipboard")
 let changePasswdDialog;
 
 export function initNewPassword() {
-    let registerDialog = dialogPolyfill;
-
-    changePasswdDialog = document.getElementById('dl_editpassword');
-    if (!changePasswdDialog.showModal) {
-        registerDialog.registerDialog(changePasswdDialog);
-    }
-    document.getElementById('editpasswd').addEventListener('click', (e) => {
-        changePasswdDialog.close();
-        let model = changePasswdDialog.model;
-        model.password = document.getElementById("editpassword").value;
-        editPassword(model);
-        document.getElementById("editpassword").value = "";
-    });
-
-
     document.querySelector("#bt_new").addEventListener('click', (e) => {
         let name = document.querySelector("#newname").value;
         let account = document.querySelector("#newaccount").value;
@@ -57,6 +42,23 @@ export function initNewPassword() {
         document.querySelector("#newnamedrawer").parentElement.classList.remove("is-dirty");
         document.querySelector("#newaccountdrawer").parentElement.classList.remove("is-dirty");
         document.querySelector("#newpassworddrawer").parentElement.classList.remove("is-dirty");
+    });
+
+    let registerDialog = dialogPolyfill;
+
+    changePasswdDialog = document.getElementById('dl_editpassword');
+    if (!changePasswdDialog.showModal) {
+        if (typeof dialogPolyfill !== "function") {
+            registerDialog = window.dialogPolyfill
+        }
+        registerDialog.registerDialog(changePasswdDialog);
+    }
+    document.getElementById('editpasswd').addEventListener('click', (e) => {
+        changePasswdDialog.close();
+        let model = changePasswdDialog.model;
+        model.password = document.getElementById("editpassword").value;
+        editPassword(model);
+        document.getElementById("editpassword").value = "";
     });
 
 }

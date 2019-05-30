@@ -160,83 +160,6 @@
               </div>
             </form>
           </div>
-          <dialog class="mdl-dialog" id="dl_changemasterpassword">
-            <form action="javascript:document.activeElement.blur();">
-              <div class="mdl-dialog__content">
-                <p>
-                  Change master password
-                </p>
-                <div class="mdl-textfield mdl-js-textfield">
-                  <input class="mdl-textfield__input" type="password" id="oldmasterpassword">
-                  <label class="mdl-textfield__label" for="oldmasterpassword">Old password</label>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield">
-                  <input class="mdl-textfield__input" type="password" id="changemasterpassword">
-                  <label class="mdl-textfield__label" for="changemasterpassword">New password</label>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield">
-                  <input class="mdl-textfield__input" type="password" id="changemasterpassword_retype">
-                  <label class="mdl-textfield__label" for="changemasterpassword_retype">Retype new password</label>
-                </div>
-              </div>
-              <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
-                <button id="savechangepasswd" type="submit" class="mdl-button">Save</button>
-                <button id="cancelchangepasswd" type="button" class="mdl-button">Cancel</button>
-              </div>
-            </form>
-          </dialog>
-          <dialog class="mdl-dialog" id="dl_setmasterpassword">
-            <form action="javascript:document.activeElement.blur();">
-              <div class="mdl-dialog__content">
-                <p>
-                  Enter a new master password for your password db
-                </p>
-                <div class="mdl-textfield mdl-js-textfield">
-                  <input class="mdl-textfield__input" type="password" id="setmasterpassword">
-                  <label class="mdl-textfield__label" for="setmasterpassword">New password</label>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield">
-                  <input class="mdl-textfield__input" type="password" id="setmasterpassword_retype">
-                  <label class="mdl-textfield__label" for="setmasterpassword_retype">Retype new password</label>
-                </div>
-              </div>
-              <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
-                <button id="setpasswdbutton" type="submit" class="mdl-button">Set password</button>
-              </div>
-            </form>
-          </dialog>
-          <dialog class="mdl-dialog" id="dl_masterpassword">
-            <form action="javascript:document.activeElement.blur();">
-              <div class="mdl-dialog__content">
-                <p>
-                  Enter your master password
-                </p>
-                <div class="mdl-textfield mdl-js-textfield">
-                  <input class="mdl-textfield__input" type="password" id="masterpassword">
-                  <label class="mdl-textfield__label" for="masterpassword">Password</label>
-                </div>
-              </div>
-              <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
-                <button id="applypasswd" type="submit" class="mdl-button">Apply</button>
-              </div>
-            </form>
-          </dialog>
-          <dialog class="mdl-dialog" id="dl_editpassword">
-            <form action="javascript:document.activeElement.blur();">
-              <div class="mdl-dialog__content">
-                <p>
-                  Enter new password
-                </p>
-                <div class="mdl-textfield mdl-js-textfield">
-                  <input class="mdl-textfield__input" type="password" id="editpassword">
-                  <label class="mdl-textfield__label" for="editpassword">Password</label>
-                </div>
-              </div>
-              <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
-                <button id="editpasswd" type="submit" class="mdl-button">Apply</button>
-              </div>
-            </form>
-          </dialog>
           <div id="passworditems" class="mdl-grid">
           </div>
           <template id="card-template">
@@ -307,6 +230,85 @@
     <div class="mdl-snackbar__text"></div>
     <button type="button" class="mdl-snackbar__action"></button>
   </div>
+
+  <dialog class="mdl-dialog" id="dl_changemasterpassword">
+    <form action="javascript:document.activeElement.blur();">
+      <div class="mdl-dialog__content">
+        <p>
+          Change master password
+        </p>
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="password" id="oldmasterpassword">
+          <label class="mdl-textfield__label" for="oldmasterpassword">Old password</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="password" id="changemasterpassword">
+          <label class="mdl-textfield__label" for="changemasterpassword">New password</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="password" id="changemasterpassword_retype">
+          <label class="mdl-textfield__label" for="changemasterpassword_retype">Retype new password</label>
+        </div>
+      </div>
+      <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+        <button id="savechangepasswd" type="submit" class="mdl-button">Save</button>
+        <button id="cancelchangepasswd" type="button" class="mdl-button">Cancel</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog class="mdl-dialog" id="dl_setmasterpassword">
+    <form action="javascript:document.activeElement.blur();">
+      <div class="mdl-dialog__content">
+        <p>
+          Enter a new master password for your password db
+        </p>
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="password" id="setmasterpassword">
+          <label class="mdl-textfield__label" for="setmasterpassword">New password</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="password" id="setmasterpassword_retype">
+          <label class="mdl-textfield__label" for="setmasterpassword_retype">Retype new password</label>
+        </div>
+      </div>
+      <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+        <button id="setpasswdbutton" type="submit" class="mdl-button">Set password</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog class="mdl-dialog" id="dl_masterpassword">
+    <form action="javascript:document.activeElement.blur();">
+      <div class="mdl-dialog__content">
+        <p>
+          Enter your master password
+        </p>
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="password" id="masterpassword">
+          <label class="mdl-textfield__label" for="masterpassword">Password</label>
+        </div>
+      </div>
+      <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+        <button id="applypasswd" type="submit" class="mdl-button">Apply</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog class="mdl-dialog" id="dl_editpassword">
+    <form action="javascript:document.activeElement.blur();">
+      <div class="mdl-dialog__content">
+        <p>
+          Enter new password
+        </p>
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="password" id="editpassword">
+          <label class="mdl-textfield__label" for="editpassword">Password</label>
+        </div>
+      </div>
+      <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+        <button id="editpasswd" type="submit" class="mdl-button">Apply</button>
+      </div>
+    </form>
+  </dialog>
+
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.10/dialog-polyfill.min.js"></script>
