@@ -12,6 +12,8 @@ export const RESET_NOTIFICATION = 'RESET_NOTIFICATION';
 export const CHANGE_FILENAME = 'CHANGE_FILENAME';
 export const SHOW_ERROR_NOTIFICATION = 'SHOW_ERROR_NOTIFICATION';
 export const WRONG_MASTERPASSWORD = 'WRONG_MASTERPASSWORD';
+export const SET_FILTER = 'SET_FILTER';
+export const RESET_FILTER = 'RESET_FILTER';
 
 
 /*
@@ -56,4 +58,12 @@ export function createShowErrorNotificationActtion(error) {
 
 export function createWrongPasswordAction(error) {
   return { type: WRONG_MASTERPASSWORD, error }
+}
+
+export function setFilterAction(expression) {
+  return { type: SET_FILTER, expression }
+}
+
+export function resetFilterAction() {
+  return { type: RESET_FILTER }
 }

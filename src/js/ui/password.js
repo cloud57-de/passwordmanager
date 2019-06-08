@@ -95,6 +95,18 @@ export function showPasswordList(list) {
     });
 }
 
+export function updatePasswordList(list) {
+    list.forEach((item) => {
+        let element = document.querySelector("#card_" + item.id);
+        if (item.visible){
+            element.classList.remove("is-hidden");
+        }
+        else {
+            element.classList.add("is-hidden");
+        }
+    });
+}
+
 function showPwdMessage(message) {
     var notification = document.querySelector('.mdl-js-snackbar');
     notification.MaterialSnackbar.showSnackbar(

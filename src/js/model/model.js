@@ -86,7 +86,7 @@ export class PasswordModel {
         this.name = name;
         this.account = account;
         this.password = password;
-
+        this.visible = true;
     }
 
 }

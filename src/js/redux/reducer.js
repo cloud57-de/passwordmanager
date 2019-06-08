@@ -8,7 +8,9 @@ import {
     RESET_NOTIFICATION,
     CHANGE_FILENAME,
     SHOW_ERROR_NOTIFICATION,
-    WRONG_MASTERPASSWORD
+    WRONG_MASTERPASSWORD,
+    SET_FILTER,
+    RESET_FILTER
 } from "./action";
 import {
     GOOGLE_INIT,
@@ -45,6 +47,7 @@ export const initialState = Map({
 
 function passwordManagerApp(state = initialState, action) {
     let newState = state;
+    let passwordList = state.get('passwordList');
 
     switch (action.type) {
         case RESET_NOTIFICATION:
@@ -54,13 +57,11 @@ function passwordManagerApp(state = initialState, action) {
             newState = state.update('passwordList', (list) => list.push(action.model));
             break;
         case EDIT_PASSWORD:
-            var passwordList = state.get('passwordList');
             var index = passwordList.findKey(model => model.id == action.model.id);
             var newList = passwordList.set(index, action.model);
             newState = state.set('passwordList', newList);
             break;
         case REMOVE_PASSWORD:
-            var passwordList = state.get('passwordList');
             var index = passwordList.findKey(model => model.id == action.id);
             var newList = passwordList.remove(index);
             newState = state.set('passwordList', newList);
@@ -69,6 +70,19 @@ function passwordManagerApp(state = initialState, action) {
             newState = state.set('passwordList', List(action.passwordList))
                 .set('googleDocument', state.get('googleDocument').delete('text'))
                 .set('infomsg', 'Import Password DB');
+            break;
+        case SET_FILTER:
+            passwordList.forEach(model => {
+                if (action.expression.length == 0 || model.name.toLowerCase().includes(action.expression.toLowerCase())) {
+                    model.visible = true;
+                }
+                else {
+                    model.visible = false;
+                }
+                let index = passwordList.findKey(item => item.id == model.id);
+                passwordList = passwordList.set(index, model);
+            });
+            newState = state.set('passwordList', passwordList);
             break;
         case CHANGE_MASTERPASSWORD:
             newState = state.set('infomsg', "Masterpassword changed")

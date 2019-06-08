@@ -8,7 +8,8 @@ import {
     createResetNotificationAction,
     createChangeFileNameAction,
     createShowErrorNotificationActtion,
-    createWrongPasswordAction
+    createWrongPasswordAction,
+    setFilterAction
 } from '../redux/action';
 import { store } from '../redux/store';
 import {
@@ -187,3 +188,8 @@ export function showErrorMessage(error) {
 export function resetNotification() {
     store.dispatch(createResetNotificationAction());
 }
+
+export function setFilter(expression) {
+    store.dispatch(setFilterAction(expression));
+}
+

@@ -49,12 +49,21 @@
         </div>
         <div class="mdl-layout-spacer"></div>
         <div id="actions">
-          <button id="bt_changepasswd" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="filterexpression">
+              <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder">
+              <input class="mdl-textfield__input" type="text" id="filterexpression">
+              <label class="mdl-textfield__label" for="filterexpression-expandable">Filter</label>
+            </div>
+          </div>
+          <button id="bt_changepasswd" class="mdl-button mdl-js-button mdl-button--icon">
             <i class="material-icons">security</i>
           </button>
           <div class="mdl-tooltip" for="bt_changepasswd">Change master password</div>
         </div>
-        <div class="mdl-layout-spacer mdl-layout--large-screen-only"></div>
+      <div class="mdl-layout-spacer mdl-layout--large-screen-only"></div>
         <img id="userimage"
           class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-layout--large-screen-only is-hidden"></img>
       </div>
