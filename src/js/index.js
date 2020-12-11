@@ -7,7 +7,7 @@ import { showUserImage } from './ui/userimage';
 import { setDocumentInfo } from './ui/fileinfo';
 import { initMasterPasswordDialog, showMasterPasswordDialog, showSetMasterPasswordDialog } from './ui/masterpassword';
 import { hideSplash } from './ui/splash';
-import { initNewPassword, showPasswordList, updatePasswordList } from './ui/password';
+import { initNewPassword, showPasswordList, updatePassword, updatePasswordList } from './ui/password';
 import { showErrorMessage, showInfoMessage } from './ui/notification';
 import { initFileInfo } from './ui/fileinfo';
 import { initFilter } from './ui/filter';
@@ -92,8 +92,12 @@ let processFlowListener = () => {
   else if (actionType === CHANGE_MASTERPASSWORD) {
     savePasswordDB();
   }
-  else if (actionType === ADD_PASSWORD || actionType === REMOVE_PASSWORD || actionType === EDIT_PASSWORD) {
+  else if (actionType === ADD_PASSWORD || actionType === REMOVE_PASSWORD) {
     savePasswordDB();
+  }
+  else if (actionType === EDIT_PASSWORD) {
+    savePasswordDB();
+    updatePassword(store.getState().get('passwordList'));
   }
   else if (actionType === GOOGLE_FILEINFO_SUCCESS) {
     setDocumentInfo(state.get('googleDocument').get('fileinfo').name);

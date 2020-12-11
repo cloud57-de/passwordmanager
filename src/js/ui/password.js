@@ -95,6 +95,14 @@ export function showPasswordList(list) {
     });
 }
 
+export function updatePassword(list) {
+    list.forEach((item) => {
+        let element = document.getElementById("card_" + item.id);
+        let passwordButton = element.querySelector('.mdl-card__actions').getElementsByTagName('button').item(1)
+        passwordButton.setAttribute("data-clipboard-text", item.password)
+    });
+}
+
 export function updatePasswordList(list) {
     list.forEach((item) => {
         let element = document.querySelector("#card_" + item.id);
