@@ -1,4 +1,5 @@
 import MaterialDesign from 'material-design-lite';
+import { version } from '../../package.json';
 import { store } from './redux/store';
 import { initGoogle, login, loadPasswordDB, importPasswordList, createNewPasswordDB, savePasswordDB, setFilter } from './api/service';
 import { GOOGLE_INIT_SUCCESS, GOOGLE_LOGIN_SUCCESS, GOOGLE_LOADDOCUMENT_SUCCESS, GOOGLE_FILEINFO_SUCCESS } from './redux/googleaction';
@@ -129,3 +130,8 @@ initMasterPasswordDialog();
 initNewPassword();
 initFileInfo();
 initFilter();
+
+let appVersionElement = document.getElementById('appversion');
+if (appVersionElement) {
+  appVersionElement.textContent = `v${version}`;
+}
