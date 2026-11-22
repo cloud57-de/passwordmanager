@@ -1,5 +1,5 @@
 import { setMasterPassword, changeMasterPassword, showErrorMessage } from '../api/service';
-import { dialogPolyfill } from 'dialog-polyfill';
+import dialogPolyfill from 'dialog-polyfill';
 
 let setPasswdDialog;
 let setNewPasswdDialog;

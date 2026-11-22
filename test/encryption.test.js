@@ -1,5 +1,4 @@
 import { encrypt, decrypt } from '../src/js/api/encryption';
-import regeneratorRuntime from 'regenerator-runtime';
 
 test('Encrypt password', async () => {
     const encryptString = await encrypt("test", "content");

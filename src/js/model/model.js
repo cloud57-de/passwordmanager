@@ -1,4 +1,4 @@
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 export class PasswordList {
 
@@ -82,7 +82,7 @@ export class PasswordList {
 export class PasswordModel {
 
     constructor(name, account, password) {
-        this.id = uuid.v4();
+        this.id = uuidv4();
         this.name = name;
         this.account = account;
         this.password = password;

@@ -2,7 +2,7 @@ import { PasswordModel } from '../model/model';
 import { addPassword, removepassword, getPassword, editPassword } from '../api/service';
 import doT from 'dot';
 import Clipboard from 'clipboard';
-import { dialogPolyfill } from 'dialog-polyfill';
+import dialogPolyfill from 'dialog-polyfill';
 
 
 let cardTemplate = doT.template(document.getElementById("card-template").innerHTML);
