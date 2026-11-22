@@ -14,6 +14,7 @@ export const SHOW_ERROR_NOTIFICATION = 'SHOW_ERROR_NOTIFICATION';
 export const WRONG_MASTERPASSWORD = 'WRONG_MASTERPASSWORD';
 export const SET_FILTER = 'SET_FILTER';
 export const RESET_FILTER = 'RESET_FILTER';
+export const REORDER_PASSWORDS = 'REORDER_PASSWORDS';
 
 
 /*
@@ -66,4 +67,8 @@ export function setFilterAction(expression) {
 
 export function resetFilterAction() {
   return { type: RESET_FILTER }
+}
+
+export function createReorderPasswordsAction(oldIndex, newIndex) {
+  return { type: REORDER_PASSWORDS, oldIndex, newIndex };
 }

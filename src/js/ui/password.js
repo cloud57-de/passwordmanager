@@ -1,5 +1,5 @@
 import { PasswordModel } from '../model/model';
-import { addPassword, removepassword, getPassword, editPassword } from '../api/service';
+import { addPassword, removepassword, getPassword, editPassword, reorderPasswords } from '../api/service';
 import doT from 'dot';
 import Clipboard from 'clipboard';
 import dialogPolyfill from 'dialog-polyfill';
@@ -66,22 +66,63 @@ export function initNewPassword() {
 export function showPassword(newItem) {
     let newElement = document.createElement("div");
     newElement.innerHTML = cardTemplate(newItem);
-    newElement.querySelector(".bt_delete").addEventListener('click', (e) => {
+    let card = newElement.firstElementChild;
+
+    card.querySelector(".bt_delete").addEventListener('click', (e) => {
         removepassword(e.currentTarget.id);
         removePasswordCard(e.currentTarget.id);
     });
 
-    newElement.querySelector(".bt_show_pwd").addEventListener('click', (e) => {
+    card.querySelector(".bt_show_pwd").addEventListener('click', (e) => {
         showPwdMessage(getPassword(e.currentTarget.id).password);
     });
 
-    newElement.querySelector(".bt_edit_pwd").addEventListener('click', (e) => {
+    card.querySelector(".bt_edit_pwd").addEventListener('click', (e) => {
         changePasswdDialog.model = getPassword(e.currentTarget.id);
         changePasswdDialog.showModal();
     });
 
-    document.querySelector('#passworditems').appendChild(newElement.firstElementChild);
+    card.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', newItem.id);
+        card.classList.add('dragging');
+    });
+
+    card.addEventListener('dragend', () => {
+        card.classList.remove('dragging');
+    });
+
+    card.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+    });
+
+    card.addEventListener('dragenter', () => {
+        card.classList.add('drag-over');
+    });
+
+    card.addEventListener('dragleave', () => {
+        card.classList.remove('drag-over');
+    });
+
+    card.addEventListener('drop', (e) => {
+        e.preventDefault();
+        card.classList.remove('drag-over');
+        let sourceId = e.dataTransfer.getData('text/plain');
+        let targetId = newItem.id;
+        if (sourceId && targetId && sourceId !== targetId) {
+            reorderPasswords(sourceId, targetId);
+        }
+    });
+
+    document.querySelector('#passworditems').appendChild(card);
     componentHandler.upgradeDom('MaterialMenu', 'mdl-menu');
+}
+
+export function clearPasswordList() {
+    let container = document.querySelector('#passworditems');
+    if (container) {
+        container.innerHTML = '';
+    }
 }
 
 export function removePasswordCard(id) {

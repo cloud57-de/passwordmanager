@@ -58,3 +58,17 @@ footer.mdl-mini-footer {
   .mdl-js-snackbar {
     z-index: 100;
   }
+
+  .card-draggable {
+    cursor: grab;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .card-draggable:active {
+    cursor: grabbing;
+  }
+  .card-draggable.dragging {
+    opacity: 0.4;
+  }
+  .card-draggable.drag-over {
+    outline: 2px dashed #4caf50;
+  }

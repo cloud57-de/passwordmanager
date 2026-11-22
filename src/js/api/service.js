@@ -9,7 +9,8 @@ import {
     createChangeFileNameAction,
     createShowErrorNotificationActtion,
     createWrongPasswordAction,
-    setFilterAction
+    setFilterAction,
+    createReorderPasswordsAction
 } from '../redux/action';
 import { store } from '../redux/store';
 import {
@@ -191,5 +192,14 @@ export function resetNotification() {
 
 export function setFilter(expression) {
     store.dispatch(setFilterAction(expression));
+}
+
+export function reorderPasswords(sourceId, targetId) {
+    let passwordList = store.getState().get('passwordList');
+    let oldIndex = passwordList.findKey(model => model.id == sourceId);
+    let newIndex = passwordList.findKey(model => model.id == targetId);
+    if (oldIndex !== undefined && newIndex !== undefined) {
+        store.dispatch(createReorderPasswordsAction(oldIndex, newIndex));
+    }
 }
 

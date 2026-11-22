@@ -10,7 +10,8 @@ import {
     SHOW_ERROR_NOTIFICATION,
     WRONG_MASTERPASSWORD,
     SET_FILTER,
-    RESET_FILTER
+    RESET_FILTER,
+    REORDER_PASSWORDS
 } from "./action";
 import {
     GOOGLE_INIT,
@@ -65,6 +66,16 @@ function passwordManagerApp(state = initialState, action) {
             var index = passwordList.findKey(model => model.id == action.id);
             var newList = passwordList.remove(index);
             newState = state.set('passwordList', newList);
+            break;
+        case REORDER_PASSWORDS:
+            if (action.oldIndex >= 0 && action.oldIndex < passwordList.size &&
+                action.newIndex >= 0 && action.newIndex < passwordList.size &&
+                action.oldIndex !== action.newIndex) {
+                const item = passwordList.get(action.oldIndex);
+                const listWithoutItem = passwordList.delete(action.oldIndex);
+                const reorderedList = listWithoutItem.insert(action.newIndex, item);
+                newState = state.set('passwordList', reorderedList);
+            }
             break;
         case IMPORT_PASSWORDLIST:
             newState = state.set('passwordList', List(action.passwordList))

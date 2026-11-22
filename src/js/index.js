@@ -3,12 +3,12 @@ import { version } from '../../package.json';
 import { store } from './redux/store';
 import { initGoogle, login, loadPasswordDB, importPasswordList, createNewPasswordDB, savePasswordDB, setFilter } from './api/service';
 import { GOOGLE_INIT_SUCCESS, GOOGLE_LOGIN_SUCCESS, GOOGLE_LOADDOCUMENT_SUCCESS, GOOGLE_FILEINFO_SUCCESS } from './redux/googleaction';
-import { SET_MASTERPASSWORD, ADD_PASSWORD, REMOVE_PASSWORD, IMPORT_PASSWORDLIST, CHANGE_MASTERPASSWORD, WRONG_MASTERPASSWORD, EDIT_PASSWORD, SET_FILTER } from './redux/action';
+import { SET_MASTERPASSWORD, ADD_PASSWORD, REMOVE_PASSWORD, IMPORT_PASSWORDLIST, CHANGE_MASTERPASSWORD, WRONG_MASTERPASSWORD, EDIT_PASSWORD, SET_FILTER, REORDER_PASSWORDS } from './redux/action';
 import { showUserImage } from './ui/userimage';
 import { setDocumentInfo } from './ui/fileinfo';
 import { initMasterPasswordDialog, showMasterPasswordDialog, showSetMasterPasswordDialog } from './ui/masterpassword';
 import { hideSplash } from './ui/splash';
-import { initNewPassword, showPasswordList, updatePassword, updatePasswordList } from './ui/password';
+import { initNewPassword, showPasswordList, updatePassword, updatePasswordList, clearPasswordList } from './ui/password';
 import { showErrorMessage, showInfoMessage } from './ui/notification';
 import { initFileInfo } from './ui/fileinfo';
 import { initFilter } from './ui/filter';
@@ -108,6 +108,11 @@ let processFlowListener = () => {
   }
   else if(actionType === SET_FILTER) {
     updatePasswordList(store.getState().get('passwordList'));
+  }
+  else if (actionType === REORDER_PASSWORDS) {
+    clearPasswordList();
+    showPasswordList(store.getState().get('passwordList'));
+    savePasswordDB();
   }
 };
 store.subscribe(processFlowListener);
